@@ -445,4 +445,1363 @@
         </div>
         <div class="field">
           <label for="inpMaterials">教材、情境、環境調整</label>
-          <input type
+          <input type="text" id="inpMaterials" value="紙箱、色紙、水管、呼拉圈、熱溶槍、奇異筆、圖畫紙、玩具刀、黏土、顏料、顏料盤、紙杯、手電筒、捲筒罐、小球、彩虹瓶。" />
+        </div>
+      </div>
+
+      <div class="field" style="margin-top: 12px;">
+        <label for="inpRoster">托育人員與本組嬰幼兒姓名（可自由修改）</label>
+        <textarea id="inpRoster" style="min-height: 58px;">托育人員：吳詩儂 本組嬰幼兒姓名：邱宇綸、李晨禾、賴司宸、陳禹彤｜托育人員：王唯芬 本組嬰幼兒姓名：烏晟熹、蔣秉均、黃宇安、李艾珈、杜躍馳｜托育人員：曹佳卉 本組嬰幼兒姓名：張能碩、李承翰、張筠晞、劉袖彤｜托育人員：黃寶玉 本組嬰幼兒姓名：張語澄、陳歆亞、陳佳渝、賴詩沂、許尹薰</textarea>
+      </div>
+
+      <div class="two-col" style="margin-top: 14px; align-items: start;">
+        <div class="field">
+          <label for="txtImportList">匯入「每月粉專／特色活動清單」（每行一筆：活動名稱｜實務領域｜繪本｜日期）</label>
+          <textarea id="txtImportList" style="min-height: 92px;" placeholder="例如：玉米畫｜藝術/塗鴉｜好餓好餓的毛毛蟲｜01/05(二)"></textarea>
+          <div class="btn-row" style="margin-top: 8px;">
+            <button class="btn-accent" id="btnImportList">📥 匯入清單並更新月計劃</button>
+            <button class="btn-soft btn-sm" id="btnLoadSampleList">載入 116年1月 粉專活動範例</button>
+          </div>
+        </div>
+        <div class="hint-box">
+          <strong>📌 操作說明：</strong><br />
+          1. 先選好<strong>班別與月份</strong>，按「依指引生成本班月計劃」，系統會自動挑出未排過的新指標編碼。<br />
+          2. 接著在左側<strong>匯入粉專或特色活動清單</strong>（如玉米畫、顏色配對、我會種花等），按「匯入清單並更新月計劃」，即可同時生成<strong>評鑑版</strong>與<strong>老師版</strong>表格。<br />
+          3. 匯出適性紀錄時，個人與全班都會比照丸子班公版格式（含 5 領域活動、勾選格、愛的叮嚀、雙照片與簽名列）；月計劃也會分開匯出<strong>評鑑版</strong>與<strong>老師版</strong> Word (A4)。
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <div class="view-tabs" role="tablist">
+          <button class="tab-btn active" data-tab="eval" id="tabEval">📋 月計劃（評鑑版表格）</button>
+          <button class="tab-btn" data-tab="teacher" id="tabTeacher">👩‍🏫 月計劃（老師版表格）</button>
+          <button class="tab-btn" data-tab="child" id="tabChild">👶 幼兒個別適性紀錄（歸檔公版）</button>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn-primary btn-sm" id="btnExportEvalWord">📄 匯出【評鑑版】Word (A4)</button>
+          <button class="btn-accent btn-sm" id="btnExportTeacherWord">📄 匯出【老師版】Word (A4)</button>
+          <button class="btn-soft btn-sm" id="btnExportChildWord">📄 匯出【本童適性紀錄公版】Word (A4)</button>
+          <button class="btn-outline btn-sm" id="btnExportAllChildrenWord">📚 批次匯出全班適性紀錄 Word</button>
+        </div>
+      </div>
+
+      <div id="viewEval">
+        <div style="margin-bottom: 8px; font-weight: 700; color: var(--primary-dark);" id="evalBanner"></div>
+        <div id="evalRosterBox" class="hint-box" style="margin-bottom: 10px; white-space: pre-line;"></div>
+        <div class="table-wrap">
+          <table class="doc-table" id="tblEval"></table>
+        </div>
+      </div>
+
+      <div id="viewTeacher" class="hidden">
+        <div style="margin-bottom: 8px; font-weight: 700; color: var(--primary-dark);" id="teacherBanner"></div>
+        <div class="table-wrap">
+          <table class="doc-table" id="tblTeacher"></table>
+        </div>
+      </div>
+
+      <div id="viewChild" class="hidden">
+        <div class="grid-controls" style="margin-bottom: 12px; background: var(--bg-soft); padding: 12px; border-radius: 10px;">
+          <div class="field">
+            <label for="selChild">選擇幼兒檔案</label>
+            <select id="selChild"></select>
+          </div>
+          <div class="field">
+            <label for="inpChildName">幼兒姓名</label>
+            <input type="text" id="inpChildName" />
+          </div>
+          <div class="field">
+            <label for="inpChildHeight">身高（cm）</label>
+            <input type="text" id="inpChildHeight" />
+          </div>
+          <div class="field">
+            <label for="inpChildWeight">體重（kg）</label>
+            <input type="text" id="inpChildWeight" />
+          </div>
+          <div class="field">
+            <label for="inpRecorder">紀錄者</label>
+            <input type="text" id="inpRecorder" />
+          </div>
+          <div class="field">
+            <label>&nbsp;</label>
+            <div class="btn-row">
+              <button class="btn-soft btn-sm" id="btnAddChild">＋ 新增幼兒</button>
+              <button class="btn-primary btn-sm" id="btnSyncChildFromPlan">↻ 帶入本月五大領域</button>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 14px; background: #fcfaf5; border: 1px solid var(--border); padding: 12px; border-radius: 10px;">
+          <div class="field">
+            <label for="txtStudentImport">👥 匯入本班學生名單（每行一位，可用逗號／頓號／斜線／製表符分隔：<code>姓名, 身高, 體重, 紀錄者</code>，或直接貼上名字清單）</label>
+            <textarea id="txtStudentImport" style="min-height: 76px;" placeholder="例如：&#10;蔣秉均, 74.5cm, 9.3kg, 王唯芬&#10;黃宇安, 74.8cm, 9.1kg, 王唯芬"></textarea>
+          </div>
+          <div class="btn-row" style="margin-top: 8px;">
+            <button class="btn-accent btn-sm" id="btnImportStudents">📥 匯入本班學生名單</button>
+            <button class="btn-outline btn-sm" id="btnAppendStudents">➕ 附加至現有名單</button>
+            <button class="btn-soft btn-sm" id="btnLoadSampleStudents">載入丸子班／中寶班範例名單</button>
+            <span id="studentCountBadge" style="font-size: 0.84rem; color: var(--primary-dark); font-weight: 700;"></span>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="doc-table" id="tblChildRecord"></table>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title"><span class="step-pill">雙向連動工作區</span> 適性發展活動紀錄、雙照片模板、錯字標點檢查與愛的叮嚀三版本</h2>
+        <span style="font-size: 0.85rem; color: var(--text-muted);" id="activeCellLabel">目前連動格位：第一週｜身體動作</span>
+      </div>
+
+      <div class="grid-controls">
+        <div class="field">
+          <label for="editCode">指標編碼</label>
+          <input type="text" id="editCode" />
+        </div>
+        <div class="field">
+          <label for="editDomain">五大發展領域</label>
+          <select id="editDomain">
+            <option value="身體動作">身體動作</option>
+            <option value="社會情緒">社會情緒</option>
+            <option value="語言溝通">語言溝通</option>
+            <option value="認知探索">認知探索</option>
+            <option value="生活自理">生活自理</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="editActName">活動名稱</label>
+          <input type="text" id="editActName" />
+        </div>
+        <div class="field">
+          <label for="editDate">日期／星期（老師版）</label>
+          <input type="text" id="editDate" />
+        </div>
+        <div class="field">
+          <label for="editPracticeArea">實務領域（老師版）</label>
+          <select id="editPracticeArea">
+            <option value="感覺統合">感覺統合</option>
+            <option value="教玩具操作">教玩具操作</option>
+            <option value="常規/自理訓練">常規/自理訓練</option>
+            <option value="自由探索">自由探索</option>
+            <option value="藝術/塗鴉">藝術/塗鴉</option>
+            <option value="兒歌唱遊">兒歌唱遊</option>
+            <option value="音樂欣賞">音樂欣賞</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="editBook">繪本名稱（老師版）</label>
+          <input type="text" id="editBook" />
+        </div>
+      </div>
+
+      <div class="two-col" style="margin-top: 12px;">
+        <div class="field">
+          <label for="editFocus">發展重點（雙向連動月計劃與適性紀錄）</label>
+          <input type="text" id="editFocus" />
+        </div>
+        <div class="field">
+          <label for="editDesc">活動引導說明（雙向連動月計劃與適性紀錄）</label>
+          <input type="text" id="editDesc" />
+        </div>
+      </div>
+
+      <hr style="border: none; border-top: 1px solid var(--bg-soft); margin: 18px 0;" />
+
+      <div class="two-col">
+        <div>
+          <h3 style="margin: 0 0 8px; font-size: 1rem; color: var(--primary-dark);">📷 1. 上傳兩張活動照片 → 自動生成五大領域模板</h3>
+          <div class="photo-grid">
+            <div class="photo-box">
+              <label style="font-weight: 700; font-size: 0.85rem;">照片 1（探索／操作過程）</label>
+              <input type="file" accept="image/*" id="filePhoto1" style="font-size: 0.78rem; margin-top: 4px;" />
+              <img id="imgPhoto1" class="photo-preview" alt="照片1預覽" />
+            </div>
+            <div class="photo-box">
+              <label style="font-weight: 700; font-size: 0.85rem;">照片 2（互動／完成表現）</label>
+              <input type="file" accept="image/*" id="filePhoto2" style="font-size: 0.78rem; margin-top: 4px;" />
+              <img id="imgPhoto2" class="photo-preview" alt="照片2預覽" />
+            </div>
+          </div>
+          <div class="btn-row" style="margin-top: 10px;">
+            <button class="btn-primary btn-sm" id="btnGenPhotoTemplate">🪄 依五大領域生成觀察模板</button>
+            <button class="btn-soft btn-sm" id="btnDemoPhotos">🖼️ 載入示範照片</button>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="margin: 0 0 8px; font-size: 1rem; color: var(--primary-dark);">✍️ 2. 老師觀察紀錄撰寫 ＋ 文字優化與錯字標點檢查</h3>
+          <div class="hint-box" style="margin-bottom: 8px; padding: 8px 10px; font-size: 0.82rem;">
+            <strong>寫作小提示：</strong>可先按「依五大領域生成觀察模板」，再補上寶寶的具體動作、眼神或聲音；寫完後按「優化文字與檢查錯字標點」，系統會協助潤飾語氣、修正錯別字與全形標點。
+          </div>
+          <textarea id="txtObservation" style="min-height: 120px;" placeholder="請輸入或生成觀察紀錄..."></textarea>
+          <div class="btn-row" style="margin-top: 8px;">
+            <button class="btn-accent btn-sm" id="btnPolishObs">✨ 優化文字與檢查錯字標點</button>
+            <button class="btn-soft btn-sm hidden" id="btnApplyObsPolish">✓ 套用優化結果</button>
+          </div>
+          <div id="obsCheckReport" class="check-box-result hidden"></div>
+        </div>
+      </div>
+
+      <hr style="border: none; border-top: 1px solid var(--bg-soft); margin: 18px 0;" />
+
+      <div>
+        <div class="card-header" style="border-bottom: none; padding-bottom: 0; margin-bottom: 8px;">
+          <h3 style="margin: 0; font-size: 1rem; color: var(--primary-dark);">💌 3. 愛的叮嚀三種版本（連動領域與活動，可選版帶入並直接修改）</h3>
+          <button class="btn-soft btn-sm" id="btnRefreshLoveVersions">↻ 依目前活動重新產生三版本</button>
+        </div>
+
+        <div class="ver-cards">
+          <div class="ver-card active" data-ver="progress">
+            <div class="ver-name">🌱 版本一：看見進步</div>
+            <div id="verTextProgress" style="font-size: 0.86rem;"></div>
+          </div>
+          <div class="ver-card" data-ver="accompany">
+            <div class="ver-name">🤝 版本二：陪伴練習</div>
+            <div id="verTextAccompany" style="font-size: 0.86rem;"></div>
+          </div>
+          <div class="ver-card" data-ver="home">
+            <div class="ver-name">🏡 版本三：在家一起試</div>
+            <div id="verTextHome" style="font-size: 0.86rem;"></div>
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-bottom: 8px;">
+          <button class="btn-primary btn-sm" id="btnApplyLoveVersion">↙ 帶入所選版本至「愛的叮嚀」</button>
+          <button class="btn-accent btn-sm" id="btnPolishLove">✨ 潤飾愛的叮嚀錯字標點</button>
+        </div>
+
+        <div class="field">
+          <label for="txtFinalLoveNote">愛的叮嚀定稿（同步至「幼兒個別適性紀錄」表格與 Word A4 匯出，可直接修改）</label>
+          <textarea id="txtFinalLoveNote" style="min-height: 86px;"></textarea>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const DOMAINS = ["身體動作", "社會情緒", "語言溝通", "認知探索", "生活自理"];
+    const PRACTICE_AREAS = ["感覺統合", "教玩具操作", "常規/自理訓練", "自由探索", "藝術/塗鴉", "兒歌唱遊", "音樂欣賞"];
+    const BOOKS = [
+      "我的老師", "我會說請", "警察", "我最喜歡車子", "小青蛙",
+      "你看到了嗎", "分享", "誰在森林裡", "可愛動物", "躲貓貓",
+      "好玩的東西", "我不怕看牙", "我的奶奶", "交通工具", "我愛交朋友",
+      "海洋世界", "噴火龍的一天", "我不亂生氣", "爸爸與我", "好餓好餓的毛毛蟲"
+    ];
+
+    const INDICATOR_BANK = {
+      small: [
+        { code: "I-1-1", domain: "身體動作", goal: "俯臥時可抬起頭及頸部", act: "抬頭小娃", focus: "頭部控制與頸部肌力", desc: "讓嬰兒趴在鋪有毛巾的安全軟墊上，以聲音或色彩鮮豔玩具引導抬頭與轉頭。" },
+        { code: "I-1-2", domain: "身體動作", goal: "能雙手碰在一起", act: "給自己抱抱", focus: "雙臂伸展與身體覺察", desc: "仰躺或抱直時引導雙手於胸前互碰，感受身體界線與放鬆。" },
+        { code: "I-1-3", domain: "身體動作", goal: "能抓握放在手心的物品", act: "握緊拳頭", focus: "掌心抓握與手部肌肉", desc: "將安全玩具或手指放入掌心，鼓勵抓握並給予正向語言回應。" },
+        { code: "I-1-4", domain: "身體動作", goal: "能試圖伸手拿眼前物品", act: "來拿玩具", focus: "視覺聚焦與手眼協調", desc: "在眼前約30公分處以聲音與動作吸引，觀察伸手取物意願。" },
+        { code: "I-2-1", domain: "社會情緒", goal: "能發出社會性微笑", act: "笑一個／鏡中人", focus: "社會性微笑與自我覺察", desc: "於精神飽滿時面對面逗弄或使用安全鏡子，引發自發性微笑。" },
+        { code: "I-2-2", domain: "社會情緒", goal: "會回應成人的逗弄", act: "我現在的心情", focus: "情緒回應與依附互動", desc: "結合換尿布或日常互動，以溫柔語調與表情引導開心回應。" },
+        { code: "I-2-3", domain: "社會情緒", goal: "會使用吸吮方式安撫自己", act: "給自己惜惜", focus: "自我安撫與情緒調節", desc: "觀察寶寶吸吮奶嘴或手指的安撫表現，及時給予溫柔陪伴。" },
+        { code: "I-3-1", domain: "語言溝通", goal: "會朝發出聲音的方向轉頭", act: "聲音在哪裡", focus: "聽覺定向與聲源辨識", desc: "於視線側邊輕搖聲響玩具或呼喚名字，觀察轉頭尋找聲源。" },
+        { code: "I-3-2", domain: "語言溝通", goal: "能注視照顧者的口型變化", act: "看誰在唱歌", focus: "口型觀察與聽語覺刺激", desc: "面對面慢速哼唱兒歌，引導注視口型與表情變化。" },
+        { code: "I-3-3", domain: "語言溝通", goal: "會發出聲音自娛", act: "發聲遊戲", focus: "發音練習與聲音探索", desc: "在清醒愉悅時陪伴發聲互動，肯定寶寶咕咕聲與音調變化。" },
+        { code: "I-4-1", domain: "認知探索", goal: "眼睛能追隨物品移動", act: "追視物品", focus: "眼球協調與視覺追視", desc: "緩慢上下左右移動色彩鮮明玩具，觀察眼神追隨移動。" },
+        { code: "I-4-2", domain: "認知探索", goal: "對光線及聲量的變化有反應", act: "感受明暗變化", focus: "視聽覺感官敏感度", desc: "以和緩漸進方式調整光線或音樂音量，觀察專注與停頓反應。" },
+        { code: "I-4-3", domain: "認知探索", goal: "能對不同觸感有反應", act: "搔癢遊戲／觸覺探索", focus: "觸覺辨識與感官經驗", desc: "使用軟刷、布書或彩虹瓶等不同觸感與光影素材輕觸探索。" },
+        { code: "I-5-1", domain: "生活自理", goal: "能吸吮奶嘴", act: "吃奶嘴", focus: "吸吮能力與口腔肌肉發展", desc: "於安撫或喝奶時觀察吸吮節奏與口慾滿足情形。" },
+        { code: "II-1-1", domain: "身體動作", goal: "俯臥時能以手臂撐起胸部", act: "我會趴", focus: "肩臂支撐與上半身肌力", desc: "在軟墊上以玩具吸引抬頭，協助前臂或手掌撐起胸部。" },
+        { code: "II-1-2", domain: "身體動作", goal: "能自己翻身", act: "翻身運動", focus: "翻身技巧與全身感覺統合", desc: "以和緩動作與玩具引導側躺至翻身，維持安全軟墊空間。" },
+        { code: "II-1-5", domain: "身體動作", goal: "能搖晃手中的物品", act: "叮叮噹", focus: "手腕控制與抓握搖晃", desc: "提供手搖鈴引導抓握搖晃，建立因果互動樂趣。" },
+        { code: "II-2-2", domain: "社會情緒", goal: "對鏡中的自己感興趣", act: "誰在鏡子裡", focus: "鏡像探索與自我概念萌芽", desc: "俯趴或坐姿看安全鏡子，呼喚名字並介紹鏡中影像。" },
+        { code: "II-3-1", domain: "語言溝通", goal: "會嘗試發出不同的聲音", act: "這是什麼", focus: "聲音模仿與語音探索", desc: "搭配動物音效繪本或圖片模仿叫聲，鼓勵寶寶發聲回應。" },
+        { code: "II-4-5", domain: "認知探索", goal: "會注視顏色或圖案鮮明的圖片／玩具", act: "彩虹瓶／瞧一瞧", focus: "視覺專注與色彩光影感知", desc: "展示色彩鮮明或玻璃紙彩虹瓶，轉動角度引導目不轉睛注視。" },
+        { code: "II-5-2", domain: "生活自理", goal: "能接受用湯匙餵食", act: "用湯匙喝果汁／副食品", focus: "湯匙進食與吞嚥協調", desc: "以小湯匙少量慢餵，觀察張口、舔食與吞嚥反應。" }
+      ],
+      mid: [
+        { code: "III-1-1", domain: "身體動作", goal: "能自己坐穩", act: "能自己坐", focus: "坐姿平衡與核心穩定", desc: "在軟墊上提供適度支持後逐步放手，鼓勵坐著操作玩具。" },
+        { code: "III-1-2", domain: "身體動作", goal: "會撐起身體向前爬行", act: "爬爬樂", focus: "四肢協調爬行與全身肌力", desc: "前方擺放滾動軟球或玩具，鼓勵撐起身體向前爬行取物。" },
+        { code: "III-1-5", domain: "身體動作", goal: "能將物品由一手換到另一手", act: "換一隻手", focus: "雙手協調與手指精細操作", desc: "引導將小玩具從一手傳換到另一手，練習抓握與放開。" },
+        { code: "III-1-6", domain: "身體動作", goal: "能用拇指配合其他手指鉗握物品", act: "串串糖葫蘆", focus: "三指鉗握與手眼精細協調", desc: "引導以拇指與食指抓握水果圖卡或小物件進行穿串與操作。" },
+        { code: "III-2-1", domain: "社會情緒", goal: "會揮手表示再見", act: "打招呼", focus: "基本社交禮貌與人際互動", desc: "於接送時段示範揮手道早安、再見，建立友善互動。" },
+        { code: "III-2-2", domain: "社會情緒", goal: "能和成人玩簡單重複遊戲", act: "躲貓貓", focus: "物體恆存概念與情緒安全感", desc: "以小方巾或雙手玩躲貓貓，觀察期待、笑聲與模仿。" },
+        { code: "III-3-1", domain: "語言溝通", goal: "能模仿大人的簡單話語", act: "跟我一起說", focus: "疊字仿說與口型模仿", desc: "把握牙牙學語時機示範「ㄅㄚ、ㄇㄚ」等簡單語彙與口型。" },
+        { code: "III-3-3", domain: "語言溝通", goal: "會以肢體動作進行溝通", act: "表示意見", focus: "指物、點頭搖頭等非口語溝通", desc: "在遊戲與日常情境中引導以指物、點頭或搖頭表達意願。" },
+        { code: "III-3-5", domain: "語言溝通", goal: "能理解簡單語彙的意思", act: "我聽懂了", focus: "語彙理解與生活指令回應", desc: "結合喝奶、睡覺等日常語彙，觀察點頭、看物或動作回應。" },
+        { code: "III-4-2", domain: "認知探索", goal: "會尋找完全被藏著的物品", act: "不見了", focus: "物體恆存與尋找策略", desc: "將玩具蓋在毛巾下，引導掀開尋找藏起來的物品。" },
+        { code: "III-4-4", domain: "認知探索", goal: "呼叫他的名字時會有反應", act: "球兒滾來滾去", focus: "名字辨識與滾球追逐探索", desc: "在不同距離呼喚幼兒名字並滾球，觀察轉頭回應與移動接近。" },
+        { code: "III-4-6", domain: "認知探索", goal: "能操作簡單玩具", act: "我會玩／彩虹投幣", focus: "玩具操作與手眼因果探索", desc: "提供按壓、投入或撥動教具，示範後鼓勵動手操作。" },
+        { code: "III-5-1", domain: "生活自理", goal: "能自己拿住奶瓶進食", act: "幫忙拿奶瓶", focus: "進食參與與抓握耐力", desc: "在安全斜坐姿勢下鼓勵雙手扶握奶瓶喝奶。" },
+        { code: "III-5-3", domain: "生活自理", goal: "能自己拿食物吃", act: "我會自己拿", focus: "手指食物抓握與自助進食", desc: "點心時間提供適合手指抓握的食物，練習準確送入口中。" },
+        { code: "III-5-4", domain: "生活自理", goal: "能拉下頭上的帽子", act: "脫帽子", focus: "穿脫前置動作與自我照顧", desc: "照鏡子示範拉下帽子，鼓勵自行嘗試脫帽。" },
+        { code: "IV-1-1", domain: "身體動作", goal: "能獨立穩定行走", act: "走過來", focus: "步行平衡與步伐穩定度", desc: "以玩具或成人呼喚鼓勵幼兒邁步向前走，注意安全保護。" },
+        { code: "IV-1-4", domain: "身體動作", goal: "能將玩具放入或倒出容器", act: "放進去拿出來", focus: "握放協調與空間因果概念", desc: "提供空盒與小玩具，示範放入與倒出並口語互動。" },
+        { code: "IV-1-5", domain: "身體動作", goal: "能翻硬紙板書", act: "寶寶翻翻書", focus: "手指翻頁與閱讀興趣", desc: "提供厚紙板書陪伴共讀，鼓勵動手翻頁與指認圖案。" },
+        { code: "IV-1-6", domain: "身體動作", goal: "能丟擲玩具", act: "玩丟丟樂／圈圈挑戰", focus: "丟擲協調與距離因果經驗", desc: "準備軟球、圈圈與紙箱，示範丟入目標並調整距離。" },
+        { code: "IV-1-7", domain: "身體動作", goal: "能以兩指（拇指、食指）撿拾物品", act: "孔雀開屏", focus: "兩指捏取與手部小肌肉控制", desc: "引導以拇指與食指捏取或拉伸色彩物件，練習精細動作與手眼協調。" },
+        { code: "IV-2-1", domain: "社會情緒", goal: "能與別的孩子坐在一起玩", act: "坐在一起", focus: "平行遊戲與同儕共處", desc: "準備充足同質教具，讓幼兒安心坐在同伴旁各自操作。" },
+        { code: "IV-2-2", domain: "社會情緒", goal: "能在提示下做基本社交動作", act: "揮手拜拜", focus: "謝謝、拜拜等社交行為", desc: "在接送與拿取物品時提示揮手、點頭或說謝謝。" },
+        { code: "IV-2-5", domain: "社會情緒", goal: "會用行為或語言表達自主性", act: "我不要", focus: "自我意願表達與尊重界線", desc: "在遊戲選擇中引導以搖頭或口語「不要」清楚表達想法。" },
+        { code: "IV-2-6", domain: "社會情緒", goal: "練習處理分離焦慮", act: "我想抱抱", focus: "分離安撫與安全堡壘建立", desc: "接送時給予擁抱與安撫物陪伴，協助平緩情緒並轉移注意力。" },
+        { code: "IV-3-1", domain: "語言溝通", goal: "能講至少十個單字", act: "說說看／巫婆湯畫", focus: "單字與疊字詞彙累積", desc: "展示熟悉物品或圖卡提問「這是什麼」，鼓勵仿說與命名。" },
+        { code: "IV-3-4", domain: "語言溝通", goal: "能理解簡單日常生活用語", act: "指認物品", focus: "日常用語理解與物品指認", desc: "請幼兒指認熟悉的物品或動物圖片，肯定理解表現。" },
+        { code: "IV-3-6", domain: "語言溝通", goal: "能回答簡單問題", act: "要不要", focus: "簡單問答理解與口語回應", desc: "以點心或散步情境詢問「要不要」，鼓勵以動作或語彙回答。" },
+        { code: "IV-4-1", domain: "認知探索", goal: "能遵從簡單的指令", act: "手在哪裡", focus: "聽指令與身體部位指認", desc: "結合兒歌與遊戲問五官或身體部位在哪裡，練習聽指令指認。" },
+        { code: "IV-4-3", domain: "認知探索", goal: "能配對簡單形狀", act: "配對遊戲", focus: "形狀辨識與對應放入", desc: "提供形狀積木或嵌入盒，先描述形狀再引導對應放入。" },
+        { code: "IV-5-1", domain: "生活自理", goal: "能用學習杯喝水", act: "我會喝水", focus: "雙手扶握與自主飲水習慣", desc: "喝水時間引導雙手拿取並扶穩學習杯或水壺，練習自主喝水。" },
+        { code: "IV-5-5", domain: "生活自理", goal: "練習洗手的技巧", act: "清潔寶寶", focus: "洗手與擦嘴清潔習慣", desc: "用餐或如廁後示範搓洗雙手與小毛巾擦嘴，鼓勵動手做。" }
+      ],
+      large: [
+        { code: "V-1-1", domain: "身體動作", goal: "能獨立地走上樓梯", act: "上樓梯", focus: "上下樓梯平衡與交替步伐", desc: "牽手或扶欄杆一步一階走上樓梯，全程注意安全陪伴。" },
+        { code: "V-1-2", domain: "身體動作", goal: "能奔跑", act: "我會跑", focus: "奔跑協調與動態平衡", desc: "在安全寬敞空間陪伴慢跑與遊戲，練習步伐控制與閃避。" },
+        { code: "V-1-3", domain: "身體動作", goal: "能原地跳起", act: "跳跳虎", focus: "彈跳動作與下肢肌力", desc: "拉手或面對面做原地蹦跳、拍高球遊戲，鼓勵嘗試跳躍。" },
+        { code: "V-1-4", domain: "身體動作", goal: "能踢球", act: "踢球樂", focus: "踢球平衡與全身協調", desc: "放置大軟球引導用腳踢球，示範後鼓勵踢出與追球。" },
+        { code: "V-1-5", domain: "身體動作", goal: "能堆疊數個小積木", act: "積木疊疊樂", focus: "手眼精細控制與堆疊高度", desc: "提供同形狀或大積木引導往上堆疊，觀察專注與平衡。" },
+        { code: "V-1-6", domain: "身體動作", goal: "能拿筆塗鴉", act: "我會塗鴉", focus: "握筆塗鴉與腕部靈活度", desc: "提供無毒粗蠟筆與大白報紙，鼓勵自由畫線條與塗鴉。" },
+        { code: "V-2-1", domain: "社會情緒", goal: "能在照片或鏡子中認出自己", act: "那是誰？", focus: "自我辨識與身分認同", desc: "看著鏡子或照片提問「這是誰」，引導認出自己與同伴。" },
+        { code: "V-2-2", domain: "社會情緒", goal: "能參與團體性的活動", act: "一起丟布球", focus: "團體規則參與與輪流等待", desc: "透過丟布球或傳球遊戲，鼓勵參與團體互動與等待。" },
+        { code: "V-2-3", domain: "社會情緒", goal: "能辨識並說出他人不同的情緒", act: "喜怒哀樂", focus: "情緒圖卡辨識與同理萌芽", desc: "以表情圖卡介紹高興、難過、生氣等情緒，引導指認與說出。" },
+        { code: "V-2-5", domain: "社會情緒", goal: "會用動作去安慰他人", act: "安慰別人", focus: "同理心表現與關懷行動", desc: "當同伴難過或哭泣時，輕牽手引導輕拍或抱抱安慰。" },
+        { code: "V-3-1", domain: "語言溝通", goal: "可說出20個以上的字彙", act: "小博士", focus: "詞彙擴充與命名表達", desc: "利用生活物品與圖卡引導說出名稱，豐富日常語彙。" },
+        { code: "V-3-2", domain: "語言溝通", goal: "能以短句與他人對話", act: "以語言表達", focus: "雙詞或短句對話互動", desc: "共讀或提問時停頓等待，鼓勵以「要吃餅餅」「玩車車」短句回應。" },
+        { code: "V-3-3", domain: "語言溝通", goal: "能說出簡單的身體部位名稱", act: "認識自己的身體", focus: "身體部位命名與口語表達", desc: "在換衣或遊戲中指著五官與四肢，引導說出部位名稱。" },
+        { code: "V-3-5", domain: "語言溝通", goal: "聽到喜歡的音樂或歌謠會跟著手舞足蹈或哼唱", act: "載歌載舞", focus: "節奏感、律動與哼唱表達", desc: "播放熟悉兒歌一起唱跳，鼓勵跟著拍子律動或哼唱。" },
+        { code: "V-4-1", domain: "認知探索", goal: "能分辨冷熱、軟硬、乾濕等", act: "感覺一下", focus: "多感官特性比較與詞彙配對", desc: "提供軟硬、乾濕或不同溫度物品觸摸比較，引導描述感受。" },
+        { code: "V-4-3", domain: "認知探索", goal: "能依形狀或顏色分類", act: "分類遊戲", focus: "分類概念與邏輯歸納", desc: "先示範將兩種形狀或顏色積木放入對應籃子，再請幼兒分類。" },
+        { code: "V-4-5", domain: "認知探索", goal: "能拼簡單拼圖", act: "我會拼圖", focus: "圖形轉動比對與解決問題", desc: "提供有柄或少片數拼圖，引導轉轉看找出合適位置。" },
+        { code: "V-5-1", domain: "生活自理", goal: "能用湯匙進食", act: "用湯匙吃東西", focus: "湯匙舀取送口與獨立進食", desc: "用餐時鼓勵自己用湯匙舀飯菜送入口中，給予耐心陪伴。" },
+        { code: "V-5-3", domain: "生活自理", goal: "能自己脫褲子及鞋子", act: "自己脫", focus: "穿脫自理與身體自主", desc: "如廁或進門時分解步驟，鼓勵自己拉下褲子或脫鞋襪。" },
+        { code: "V-5-6", domain: "生活自理", goal: "能幫忙收拾玩具及物品", act: "自己收玩具", focus: "歸位習慣與簡單家事參與", desc: "遊戲或用餐後陪伴一起送玩具回家、擦桌子或收餐具。" }
+      ]
+    };
+
+    const DEFAULT_ROSTERS = {
+      small: "托育人員：小寶班保育團隊｜本組嬰幼兒姓名：鄭硯宇、林洛彤、林昕媞、俞凱瓅、藍芝穎",
+      mid: "托育人員：吳詩儂 本組嬰幼兒姓名：邱宇綸、李晨禾、賴司宸、陳禹彤｜托育人員：王唯芬 本組嬰幼兒姓名：烏晟熹、蔣秉均、黃宇安、李艾珈、杜躍馳｜托育人員：曹佳卉 本組嬰幼兒姓名：張能碩、李承翰、張筠晞、劉袖彤｜托育人員：黃寶玉 本組嬰幼兒姓名：張語澄、陳歆亞、陳佳渝、賴詩沂、許尹薰",
+      large: "托育人員：大寶班保育團隊｜本組嬰幼兒姓名：陳品睿、黃宥澄、林子恩、張家齊、周語柔"
+    };
+
+    const DEFAULT_CHILDREN = {
+      small: [
+        { id: "c_s_1", name: "鄭硯宇", height: "72.5cm", weight: "10.1kg", recorder: "小寶班老師", ratings: { "身體動作": "常常", "社會情緒": "總是", "語言溝通": "偶爾", "認知探索": "常常", "生活自理": "常常" }, loveNote: "在「彩虹瓶」活動中，硯宇剛看到彩虹瓶時眼睛馬上亮了起來，對瓶內繽紛、不同於平時日光下的色彩感到十分好奇！老師協助硯宇拿著彩虹瓶轉換不同角度觀察，讓硯宇發現色彩也會隨著角度產生不同變化。透過活動滿足硯宇對視覺探索的好奇，也累積不同的感官經驗！" },
+        { id: "c_s_2", name: "林洛彤", height: "58cm", weight: "5.7kg", recorder: "小寶班老師", ratings: { "身體動作": "偶爾", "社會情緒": "總是", "語言溝通": "偶爾", "認知探索": "偶爾", "生活自理": "較少" }, loveNote: "在「這是什麼」活動中，拿出繪本的同時出現生活常見的動物叫聲，洛彤隨即好奇地找尋聲音來源，雖然洛彤還不會模仿動物的叫聲，但看著老師生動誇張的動作表情，笑得很開心，小手也一起動想與老師模仿呢！" },
+        { id: "c_s_3", name: "林昕媞", height: "66cm", weight: "7.7kg", recorder: "小寶班老師", ratings: { "身體動作": "偶爾", "社會情緒": "常常", "語言溝通": "偶爾", "認知探索": "常常", "生活自理": "偶爾" }, loveNote: "在「彩虹瓶」活動中，昕媞剛看到彩虹瓶時眼睛馬上亮了起來，對瓶內繽紛、不同於平時日光下的色彩感到十分好奇！老師協助昕媞拿著彩虹瓶轉換不同角度觀察，讓昕媞發現色彩也會隨著角度產生不同變化。透過活動滿足昕媞對視覺探索的好奇，也累積不同的感官經驗！" },
+        { id: "c_s_4", name: "俞凱瓅", height: "57cm", weight: "5.6kg", recorder: "小寶班老師", ratings: { "身體動作": "較少", "社會情緒": "偶爾", "語言溝通": "較少", "認知探索": "偶爾", "生活自理": "較少" }, loveNote: "凱瓅剛入園時，對於新的環境還需要一些時間適應，偶爾也會因環境的變化而影響休息，出現哭泣的情形。經過這段時間的陪伴與引導，老師也持續觀察到凱瓅慢慢熟悉園所的生活。在「彩虹瓶」的活動中，凱瓅跟著老師一起探索彩虹瓶，相信藉由活動的刺激，滿足對視覺的感知，也累積不同的感官經驗！" },
+        { id: "c_s_5", name: "藍芝穎", height: "66cm", weight: "7.7kg", recorder: "小寶班老師", ratings: { "身體動作": "偶爾", "社會情緒": "總是", "語言溝通": "偶爾", "認知探索": "常常", "生活自理": "偶爾" }, loveNote: "在「彩虹瓶」活動中，芝穎剛看到彩虹瓶時眼睛馬上亮了起來，對瓶內繽紛、不同於平時日光下的色彩感到十分好奇！老師協助芝穎拿著彩虹瓶轉換不同角度觀察，讓芝穎發現色彩也會隨著角度產生不同變化。透過活動滿足芝穎對視覺探索的好奇，也累積不同的感官經驗！" }
+      ],
+      mid: [
+        { id: "c_m_1", name: "蔣秉均", height: "74.5cm", weight: "9.3kg", recorder: "王唯芬", ratings: { "身體動作": "常常", "社會情緒": "總是", "語言溝通": "總是", "認知探索": "常常", "生活自理": "總是" }, loveNote: "在「孔雀開屏」活動中，秉均對繽紛色彩很感興趣，也願意跟著老師探索，操作時，秉均需要時間熟悉套取橡皮筋的方法，老師會耐心引導陪伴並給予鼓勵，幫助秉均累積手部操作與協調經驗，漸漸培養手部力量與雙手的協調能力且秉均也能享受完成任務的成就感！" },
+        { id: "c_m_2", name: "黃宇安", height: "74.8cm", weight: "9.1kg", recorder: "王唯芬", ratings: { "身體動作": "常常", "社會情緒": "常常", "語言溝通": "常常", "認知探索": "常常", "生活自理": "常常" }, loveNote: "在「串串糖葫蘆」活動中，宇安需要一些時間觀察與摸索，過程中給予充分的嘗試時間，並適時提供協助，讓宇安在操作與探索中累積經驗，培養認知能力及解決問題的信心。當成功將水果片串起時，宇安露出開心的表情，也感受到操作成功所帶來的成就感。" },
+        { id: "c_m_3", name: "李艾珈", height: "73cm", weight: "10.2kg", recorder: "王唯芬", ratings: { "身體動作": "偶爾", "社會情緒": "總是", "語言溝通": "常常", "認知探索": "常常", "生活自理": "常常" }, loveNote: "艾珈在「巫婆湯畫」活動中展現對色彩的興趣，透過觀察老師示範與聆聽引導，累積語言理解與表達的經驗。透過日常生活對話、共讀繪本或唱歌，陪伴艾珈認識不同顏色，並反覆介紹簡單詞語，增加語言學習與表達的機會。" },
+        { id: "c_m_4", name: "烏晟熹", height: "74.5cm", weight: "9.6kg", recorder: "王唯芬", ratings: { "身體動作": "偶爾", "社會情緒": "常常", "語言溝通": "常常", "認知探索": "偶爾", "生活自理": "常常" }, loveNote: "在「孔雀開屏」活動中，晟熹對繽紛的顏色很感興趣，也願意跟著老師探索。操作時，晟熹需要時間熟悉套取橡皮筋的方法，老師會耐心引導陪伴並給予鼓勵，幫助晟熹累積手部操作與協調經驗，漸漸培養手部力量與雙手的協調能力且晟熹也能享受完成任務的成就感喔！" },
+        { id: "c_m_5", name: "杜躍馳", height: "70cm", weight: "9.2kg", recorder: "王唯芬", ratings: { "身體動作": "偶爾", "社會情緒": "總是", "語言溝通": "常常", "認知探索": "偶爾", "生活自理": "常常" }, loveNote: "在「孔雀開屏」活動中，躍馳對繽紛的色彩很感興趣，也願意跟著老師一同探索！在操作活動時，躍馳需要時間熟悉套取橡皮筋的方法，而老師會在過程中給予協助及鼓勵，幫助躍馳完成活動。透過套取橡皮筋的過程，慢慢增加手部力量，相信躍馳會慢慢累積更多小手操作的經驗喔！" }
+      ],
+      large: [
+        { id: "c_l_1", name: "陳品睿", height: "85cm", weight: "12.4kg", recorder: "大寶班老師", ratings: { "身體動作": "總是", "社會情緒": "常常", "語言溝通": "常常", "認知探索": "總是", "生活自理": "常常" }, loveNote: "品睿在團體與探索活動中能勇敢嘗試新玩法，也喜歡與老師分享自己的發現，表現越來越棒！" }
+      ]
+    };
+
+    function createDemoDataUrl(label, bgHex, subText) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="480" height="320" viewBox="0 0 480 320">
+        <rect width="480" height="320" rx="16" fill="${bgHex}"/>
+        <rect x="20" y="20" width="440" height="280" rx="12" fill="none" stroke="#ffffff" stroke-width="3" stroke-dasharray="8,6"/>
+        <text x="240" y="135" font-size="28" font-weight="bold" fill="#23382e" text-anchor="middle" font-family="sans-serif">${label}</text>
+        <text x="240" y="178" font-size="17" fill="#3c5448" text-anchor="middle" font-family="sans-serif">${subText}</text>
+        <text x="240" y="235" font-size="14" fill="#5b7065" text-anchor="middle" font-family="sans-serif">桃園市私立中旭園托嬰中心｜適性發展觀察照片</text>
+      </svg>`;
+      return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+    }
+
+    const STORAGE_KEY = "zhongxuyuan_adaptive_workspace_v5";
+
+    let state = {
+      classKey: "mid",
+      rocYear: 116,
+      month: 1,
+      ageRange: "9-17個月",
+      materials: "紙箱、色紙、水管、呼拉圈、熱溶槍、奇異筆、圖畫紙、玩具刀、黏土、顏料、顏料盤、紙杯、手電筒、捲筒罐、小球、彩虹瓶。",
+      rosterByClass: { ...DEFAULT_ROSTERS },
+      usedCodesByClass: { small: [], mid: [], large: [] },
+      planByClass: {},
+      selectedWeek: 0,
+      selectedDomain: "身體動作",
+      activeTab: "eval",
+      selectedLoveVersion: "progress",
+      loveVersions: { progress: "", accompany: "", home: "" },
+      photo1: createDemoDataUrl("照片 1：探索與操作", "#e3efe8", "幼兒專注觀察教具並嘗試動手"),
+      photo2: createDemoDataUrl("照片 2：互動與回應", "#faecd9", "與老師雙向互動、表情自然愉悅"),
+      childrenByClass: JSON.parse(JSON.stringify(DEFAULT_CHILDREN)),
+      selectedChildId: { small: "c_s_1", mid: "c_m_1", large: "c_l_1" }
+    };
+
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => el.classList.remove("show"), 2500);
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          state = {
+            ...state,
+            ...parsed,
+            rosterByClass: { ...DEFAULT_ROSTERS, ...(parsed.rosterByClass || {}) },
+            usedCodesByClass: { small: [], mid: [], large: [], ...(parsed.usedCodesByClass || {}) },
+            childrenByClass: { ...JSON.parse(JSON.stringify(DEFAULT_CHILDREN)), ...(parsed.childrenByClass || {}) }
+          };
+        }
+      } catch (e) {}
+    }
+
+    function getPlanKey(cls = state.classKey, yr = state.rocYear, mo = state.month) {
+      return `${cls}_${yr}_${mo}`;
+    }
+
+    function pickNonRepeatingIndicators(cls, count = 25) {
+      const bank = INDICATOR_BANK[cls] || INDICATOR_BANK.mid;
+      let used = state.usedCodesByClass[cls] || [];
+      const available = bank.filter(item => !used.includes(item.code));
+      let pool = [...available];
+      if (pool.length < count) {
+        used = [];
+        pool = [...bank];
+      }
+      const picked = [];
+      for (let i = 0; i < count; i++) {
+        if (pool.length === 0) pool = [...bank];
+        const idx = Math.floor(Math.random() * pool.length);
+        const chosen = pool.splice(idx, 1)[0];
+        picked.push({ ...chosen });
+        if (!used.includes(chosen.code)) used.push(chosen.code);
+      }
+      state.usedCodesByClass[cls] = used;
+      return picked;
+    }
+
+    function buildWeekDayLabel(mo, weekIdx, domIdx) {
+      const dayNum = Math.min(28, weekIdx * 7 + domIdx + 1);
+      const weekdays = ["一", "二", "三", "四", "五"];
+      const mm = String(mo).padStart(2, "0");
+      const dd = String(dayNum).padStart(2, "0");
+      return `${mm}/${dd}(${weekdays[domIdx % 5]})`;
+    }
+
+    function generateMonthPlan(cls = state.classKey, yr = state.rocYear, mo = state.month) {
+      const picked = pickNonRepeatingIndicators(cls, 25);
+      const weeks = [];
+      for (let w = 0; w < 5; w++) {
+        const weekObj = { weekName: ["第一週", "第二週", "第三週", "第四週", "第五週"][w], cells: {} };
+        DOMAINS.forEach((dom, dIdx) => {
+          const item = picked[(w * 5 + dIdx) % picked.length];
+          const pArea = PRACTICE_AREAS[(w * 3 + dIdx) % PRACTICE_AREAS.length];
+          const book = BOOKS[(w * 5 + dIdx + mo) % BOOKS.length];
+          weekObj.cells[dom] = {
+            code: item.code,
+            domain: dom,
+            goal: item.goal,
+            actName: item.act,
+            focus: item.focus,
+            desc: item.desc,
+            dateLabel: buildWeekDayLabel(mo, w, dIdx),
+            practiceArea: pArea,
+            book: book,
+            observation: `在「${item.act}」活動中（指標 ${item.code}），觀察幼兒於${dom}領域的探索表現，能依自身節奏參與操作並與成人互動。`
+          };
+        });
+        weeks.push(weekObj);
+      }
+      state.planByClass[getPlanKey(cls, yr, mo)] = weeks;
+      saveState();
+      return weeks;
+    }
+
+    function ensureCurrentPlan() {
+      const key = getPlanKey();
+      if (!state.planByClass[key]) {
+        return generateMonthPlan(state.classKey, state.rocYear, state.month);
+      }
+      return state.planByClass[key];
+    }
+
+    function getActiveCell() {
+      const weeks = ensureCurrentPlan();
+      const w = weeks[state.selectedWeek] || weeks[0];
+      return w.cells[state.selectedDomain] || w.cells[DOMAINS[0]];
+    }
+
+    function getCurrentChild() {
+      const list = state.childrenByClass[state.classKey] || [];
+      const curId = state.selectedChildId[state.classKey];
+      return list.find(c => c.id === curId) || list[0];
+    }
+
+    function polishTraditionalChinese(text) {
+      let out = (text || "").trim();
+      const changes = [];
+      const typos = [
+        ["在次", "再次"], ["做為", "作為"], ["必需", "必須"], ["像徵", "象徵"],
+        ["發洩", "宣洩"], ["己經", "已經"], ["因該", "應該"], ["需藥", "需要"],
+        ["跟本", "根本"], ["唸書", "念書"], ["很棒!", "表現自然專注！"],
+        ["很棒！", "表現自然專注！"], ["好棒!", "展現積極探索！"], ["好棒！", "展現積極探索！"]
+      ];
+      typos.forEach(([bad, good]) => {
+        if (out.includes(bad)) {
+          out = out.split(bad).join(good);
+          changes.push(`修正「${bad}」→「${good}」`);
+        }
+      });
+
+      const punctMap = [
+        [",", "，"], [".", "。"], ["!", "！"], ["?", "？"],
+        [":", "："], [";", "；"], ["(", "（"], [")", "）"]
+      ];
+      let punctFixed = false;
+      punctMap.forEach(([half, full]) => {
+        if (out.includes(half)) {
+          out = out.split(half).join(full);
+          punctFixed = true;
+        }
+      });
+      if (punctFixed) changes.push("統一全形中文標點符號");
+
+      if (out && !/[。！？」』）…]$/.test(out)) {
+        out += "。";
+        changes.push("補齊句尾全形句號");
+      }
+
+      if (changes.length === 0) {
+        changes.push("錯字與全形標點檢查通過，語句流暢清晰。");
+      }
+      return { polished: out, changes };
+    }
+
+    function buildLoveVersions(cell, child) {
+      const childName = (child && child.name) ? child.name : "寶貝";
+      const act = cell.actName || "適性發展活動";
+      const dom = cell.domain || "身體動作";
+      const code = cell.code || "";
+
+      return {
+        progress: `在「${act}」（${code}・${dom}）活動中，${childName}展現了專注與好奇心，能隨著老師的引導嘗試操作與回應，看見${childName}一步步累積能力，讓人感到十分欣喜！`,
+        accompany: `在「${act}」（${code}・${dom}）活動裡，${childName}正依著自己的節奏探索與適應。老師會以溫柔、不催促的方式陪伴${childName}練習，給予安全感與充足時間，陪著${childName}慢慢長出自信。`,
+        home: `今天我們一起玩了「${act}」（${dom}）！爸爸媽媽在家也可以利用日常作息或簡單玩具，用輕鬆愉快的語氣和${childName}互動、說說話，讓${childName}在熟悉的家庭陪伴中延伸學習經驗喔！`
+      };
+    }
+
+    function syncEditorFromActiveCell() {
+      const cell = getActiveCell();
+      const child = getCurrentChild();
+      document.getElementById("activeCellLabel").textContent =
+        `目前連動格位：${["第一週","第二週","第三週","第四週","第五週"][state.selectedWeek]}｜${state.selectedDomain}`;
+      document.getElementById("editCode").value = cell.code || "";
+      document.getElementById("editDomain").value = cell.domain || state.selectedDomain;
+      document.getElementById("editActName").value = cell.actName || "";
+      document.getElementById("editDate").value = cell.dateLabel || "";
+      document.getElementById("editPracticeArea").value = cell.practiceArea || "感覺統合";
+      document.getElementById("editBook").value = cell.book || "";
+      document.getElementById("editFocus").value = cell.focus || "";
+      document.getElementById("editDesc").value = cell.desc || "";
+      document.getElementById("txtObservation").value = cell.observation || "";
+
+      const vers = buildLoveVersions(cell, child);
+      state.loveVersions = vers;
+      document.getElementById("verTextProgress").textContent = vers.progress;
+      document.getElementById("verTextAccompany").textContent = vers.accompany;
+      document.getElementById("verTextHome").textContent = vers.home;
+
+      if (child) {
+        document.getElementById("txtFinalLoveNote").value = child.loveNote || vers.progress;
+      }
+    }
+
+    function applyEditorToActiveCell() {
+      const weeks = ensureCurrentPlan();
+      const cell = weeks[state.selectedWeek].cells[state.selectedDomain];
+      cell.code = document.getElementById("editCode").value.trim();
+      cell.domain = document.getElementById("editDomain").value;
+      cell.actName = document.getElementById("editActName").value.trim();
+      cell.dateLabel = document.getElementById("editDate").value.trim();
+      cell.practiceArea = document.getElementById("editPracticeArea").value;
+      cell.book = document.getElementById("editBook").value.trim();
+      cell.focus = document.getElementById("editFocus").value.trim();
+      cell.desc = document.getElementById("editDesc").value.trim();
+      cell.observation = document.getElementById("txtObservation").value;
+
+      saveState();
+      renderTables();
+      document.getElementById("syncStatus").textContent = "● 已即時雙向同步・自動儲存中";
+    }
+
+    function parseStudentsText(rawText) {
+      const clsNameMap = { small: "小寶班老師", mid: "中寶班老師", large: "大寶班老師" };
+      const defaultRec = clsNameMap[state.classKey] || "班級老師";
+      const lines = (rawText || "").split(/\r?\n/).map(s => s.trim()).filter(Boolean);
+      const parsed = [];
+
+      lines.forEach((line, idx) => {
+        const hasDelim = /[,，\t/|／]/.test(line);
+        if (hasDelim) {
+          const parts = line.split(/[,，\t/|／]/).map(p => p.trim()).filter(Boolean);
+          if (parts.length > 0) {
+            const name = parts[0];
+            let h = parts[1] || "65cm";
+            let w = parts[2] || "7.5kg";
+            if (h && !/cm$/i.test(h) && !isNaN(parseFloat(h))) h += "cm";
+            if (w && !/kg$/i.test(w) && !isNaN(parseFloat(w))) w += "kg";
+            const rec = parts[3] || defaultRec;
+            parsed.push({
+              id: `c_${state.classKey}_${Date.now()}_${idx}`,
+              name,
+              height: h,
+              weight: w,
+              recorder: rec,
+              ratings: { "身體動作": "常常", "社會情緒": "常常", "語言溝通": "偶爾", "認知探索": "常常", "生活自理": "偶爾" },
+              loveNote: `在適性發展活動中，${name}能依自己的節奏觀察與操作，老師會持續溫柔陪伴並記錄${name}的每一步成長！`
+            });
+          }
+        } else {
+          const namesOnly = line.split(/[、\s]+/).map(n => n.trim()).filter(Boolean);
+          namesOnly.forEach((nm, nIdx) => {
+            parsed.push({
+              id: `c_${state.classKey}_${Date.now()}_${idx}_${nIdx}`,
+              name: nm,
+              height: "65cm",
+              weight: "7.5kg",
+              recorder: defaultRec,
+              ratings: { "身體動作": "常常", "社會情緒": "常常", "語言溝通": "偶爾", "認知探索": "常常", "生活自理": "偶爾" },
+              loveNote: `在適性發展活動中，${nm}能依自己的節奏觀察與操作，老師會持續溫柔陪伴並記錄${nm}的每一步成長！`
+            });
+          });
+        }
+      });
+      return parsed;
+    }
+
+    function updateRosterSummaryFromChildren() {
+      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
+      const list = state.childrenByClass[state.classKey] || [];
+      if (list.length > 0) {
+        const names = list.map(c => c.name).join("、");
+        const rec = list[0].recorder || `${clsNameMap[state.classKey]}老師`;
+        const summary = `托育人員：${rec}｜本組嬰幼兒姓名（共${list.length}名）：${names}`;
+        state.rosterByClass[state.classKey] = summary;
+        document.getElementById("inpRoster").value = summary;
+      }
+      document.getElementById("studentCountBadge").textContent = `目前本班共 ${list.length} 位學生`;
+    }
+
+    function renderTables() {
+      const weeks = ensureCurrentPlan();
+      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
+      const clsTitle = clsNameMap[state.classKey] || "中寶班";
+
+      document.getElementById("evalBanner").textContent =
+        `中旭園托嬰中心 適性發展活動 ${state.rocYear}年${state.month}月計畫（評鑑版・${clsTitle}） 年齡：${state.ageRange}`;
+      document.getElementById("evalRosterBox").textContent =
+        state.rosterByClass[state.classKey] || DEFAULT_ROSTERS[state.classKey];
+
+      document.getElementById("teacherBanner").textContent =
+        `中旭園托嬰中心 適性發展活動 ${state.rocYear}年${state.month}月計畫（老師版・${clsTitle}）`;
+
+      let evalHtml = `<thead><tr>
+        <th style="width:92px;">週次／領域</th>
+        <th>身體動作</th>
+        <th>社會情緒</th>
+        <th>語言溝通</th>
+        <th>認知探索</th>
+        <th>生活自理</th>
+      </tr></thead><tbody>`;
+
+      weeks.forEach((wk, wIdx) => {
+        evalHtml += `<tr><td style="text-align:center;font-weight:700;background:#f7f5ef;">${wk.weekName}<br><span style="font-size:0.76rem;color:#64706a;">活動內容</span></td>`;
+        DOMAINS.forEach(dom => {
+          const c = wk.cells[dom];
+          const isSel = (wIdx === state.selectedWeek && dom === state.selectedDomain);
+          evalHtml += `<td>
+            <div class="cell-box ${isSel ? "selected-cell" : ""}" onclick="selectCell(${wIdx}, '${dom}')">
+              <span class="code-tag">${escapeHtml(c.code)}</span>
+              <span class="act-title-bold">${escapeHtml(c.goal)}</span>
+              <span style="color:#38594a;font-weight:700;">【${escapeHtml(c.actName)}】</span>
+              <div style="font-size:0.78rem;color:#525e58;margin-top:3px;">${escapeHtml(c.focus)}</div>
+              <div style="margin-top:5px;">
+                <button type="button" class="btn-soft btn-sm" onclick="event.stopPropagation(); selectCell(${wIdx}, '${dom}', true)">帶入紀錄</button>
+              </div>
+            </div>
+          </td>`;
+        });
+        evalHtml += `</tr>`;
+      });
+
+      evalHtml += `<tr>
+        <td style="text-align:center;font-weight:700;background:#f1ede4;">教材、情境、環境調整</td>
+        <td colspan="5">${escapeHtml(state.materials)}</td>
+      </tr>
+      <tr>
+        <td colspan="6" style="padding:12px 16px;background:#faf8f3;font-weight:600;">
+          托育人員簽名：______________________    主任簽名：______________________
+        </td>
+      </tr></tbody>`;
+      document.getElementById("tblEval").innerHTML = evalHtml;
+
+      let tHtml = `<thead><tr>
+        <th style="width:92px;">週次／領域</th>
+        <th>身體動作</th>
+        <th>社會情緒</th>
+        <th>語言溝通</th>
+        <th>認知探索</th>
+        <th>生活自理</th>
+      </tr></thead><tbody>`;
+
+      weeks.forEach((wk, wIdx) => {
+        tHtml += `<tr><td style="text-align:center;font-weight:700;background:#f7f5ef;">${wk.weekName}<br><span style="font-size:0.76rem;color:#64706a;">活動內容</span></td>`;
+        DOMAINS.forEach(dom => {
+          const c = wk.cells[dom];
+          const isSel = (wIdx === state.selectedWeek && dom === state.selectedDomain);
+          const extraNote = (wIdx === 4 && dom === "認知探索")
+            ? `<div style="color:#b54848;font-size:0.76rem;font-weight:700;margin-top:2px;">（${state.month}/13前生活花絮照片要先交出來）</div>`
+            : "";
+          tHtml += `<td>
+            <div class="cell-box ${isSel ? "selected-cell" : ""}" onclick="selectCell(${wIdx}, '${dom}')">
+              <div style="font-weight:700;color:#2f5241;">${escapeHtml(c.dateLabel)} <span class="code-tag">${escapeHtml(c.code)}</span></div>
+              <span class="act-title-bold">【${escapeHtml(c.actName)}】</span>
+              <div style="font-size:0.8rem;">領域：${escapeHtml(c.practiceArea)}</div>
+              <div style="font-size:0.8rem;">繪本：${escapeHtml(c.book)}</div>
+              ${extraNote}
+              <div style="margin-top:5px;">
+                <button type="button" class="btn-soft btn-sm" onclick="event.stopPropagation(); selectCell(${wIdx}, '${dom}', true)">帶入紀錄</button>
+              </div>
+            </div>
+          </td>`;
+        });
+        tHtml += `</tr>`;
+      });
+      tHtml += `</tbody>`;
+      document.getElementById("tblTeacher").innerHTML = tHtml;
+
+      renderChildRecordView();
+    }
+
+    function renderChildRecordView() {
+      const childList = state.childrenByClass[state.classKey] || [];
+      document.getElementById("studentCountBadge").textContent = `目前本班共 ${childList.length} 位學生`;
+
+      const selChildEl = document.getElementById("selChild");
+      selChildEl.innerHTML = childList.map(c => `<option value="${c.id}">${escapeHtml(c.name)}</option>`).join("");
+      const child = getCurrentChild();
+      if (!child) return;
+      selChildEl.value = child.id;
+
+      document.getElementById("inpChildName").value = child.name;
+      document.getElementById("inpChildHeight").value = child.height;
+      document.getElementById("inpChildWeight").value = child.weight;
+      document.getElementById("inpRecorder").value = child.recorder || "";
+
+      const weeks = ensureCurrentPlan();
+      const firstWeek = weeks[0];
+      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
+
+      let rowsHtml = `<thead>
+        <tr>
+          <th colspan="6" style="background:#e6efe9;text-align:left;font-size:1rem;padding:10px 12px;">
+            桃園市私立中旭園托嬰中心 ${state.rocYear}年 ${state.month}月 適性發展月活動紀錄<br>
+            <span style="font-size:0.9rem;font-weight:600;">班級：${clsNameMap[state.classKey]}  姓名：${escapeHtml(child.name)}  身高：${escapeHtml(child.height)}  體重：${escapeHtml(child.weight)}</span>
+          </th>
+        </tr>
+        <tr>
+          <th style="width:52px;">領域</th>
+          <th>適性發展活動</th>
+          <th style="width:56px;">總是</th>
+          <th style="width:56px;">常常</th>
+          <th style="width:56px;">偶爾</th>
+          <th style="width:56px;">較少</th>
+        </tr>
+      </thead><tbody>`;
+
+      DOMAINS.forEach(dom => {
+        const c = firstWeek.cells[dom];
+        const vertLabel = dom.split("").join("<br>");
+        const curRating = (child.ratings && child.ratings[dom]) || "常常";
+        const opts = ["總是", "常常", "偶爾", "較少"];
+        const checkTds = opts.map(opt => {
+          const isChecked = (curRating === opt);
+          return `<td class="check-cell ${isChecked ? "checked" : ""}" onclick="setChildRating('${dom}', '${opt}')">${isChecked ? "ˇ" : ""}</td>`;
+        }).join("");
+
+        rowsHtml += `<tr>
+          <td style="text-align:center;font-weight:700;background:#f7f5ef;line-height:1.35;">${vertLabel}</td>
+          <td>
+            <div style="font-weight:700;color:#234234;">${escapeHtml(c.code)} ${escapeHtml(c.goal)}【${escapeHtml(c.actName)}】</div>
+            <div style="font-size:0.85rem;margin-top:3px;color:#333c37;">${escapeHtml(c.desc)}（重點：${escapeHtml(c.focus)}）</div>
+          </td>
+          ${checkTds}
+        </tr>`;
+      });
+
+      rowsHtml += `<tr>
+        <td style="text-align:center;font-weight:700;background:#fbf1e8;line-height:1.35;">愛<br>的<br>叮<br>嚀</td>
+        <td colspan="5" style="background:#fffdf9;">${escapeHtml(child.loveNote || "")}</td>
+      </tr>
+      <tr>
+        <td style="text-align:center;font-weight:700;background:#f7f5ef;line-height:1.35;">活<br>動<br>照<br>片</td>
+        <td colspan="5" style="text-align:center;">
+          <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+            <img src="${state.photo1}" style="width:220px;height:150px;object-fit:cover;border-radius:6px;border:1px solid #ccc;" alt="活動照片1" />
+            <img src="${state.photo2}" style="width:220px;height:150px;object-fit:cover;border-radius:6px;border:1px solid #ccc;" alt="活動照片2" />
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="6" style="padding:12px 16px;background:#faf8f3;font-weight:600;">
+          紀錄者：${escapeHtml(child.recorder || "_____________")}    主任：_____________    家長簽名：_____________
+        </td>
+      </tr></tbody>`;
+
+      document.getElementById("tblChildRecord").innerHTML = rowsHtml;
+    }
+
+    function setChildRating(domain, rating) {
+      const child = getCurrentChild();
+      if (!child) return;
+      if (!child.ratings) child.ratings = {};
+      child.ratings[domain] = rating;
+      saveState();
+      renderChildRecordView();
+      showToast(`已更新「${child.name}」${domain}：${rating}`);
+    }
+
+    function selectCell(weekIdx, domain, focusEditor = false) {
+      state.selectedWeek = weekIdx;
+      state.selectedDomain = domain;
+      saveState();
+      renderTables();
+      syncEditorFromActiveCell();
+      if (focusEditor) {
+        document.getElementById("editActName").scrollIntoView({ behavior: "smooth", block: "center" });
+        showToast(`已帶入「${["第一週","第二週","第三週","第四週","第五週"][weekIdx]}・${domain}」`);
+      }
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function buildMarukoChildPageHtml(ch, clsNameMap, weeks, pageBreak = false) {
+      const firstWeek = weeks[0];
+      const rows = DOMAINS.map(dom => {
+        const c = firstWeek.cells[dom];
+        const curR = (ch.ratings && ch.ratings[dom]) || "常常";
+        const checks = ["總是", "常常", "偶爾", "較少"]
+          .map(op => `<td style="text-align:center;vertical-align:middle;font-size:11pt;font-weight:bold;">${curR === op ? "ˇ" : ""}</td>`)
+          .join("");
+        return `<tr>
+          <td style="text-align:center;vertical-align:middle;font-weight:bold;background-color:#f9faf9;line-height:1.25;">${dom.split("").join("<br>")}</td>
+          <td style="padding:6px 8px;">
+            <div style="font-weight:bold;margin-bottom:2px;">${escapeHtml(c.code)} ${escapeHtml(c.goal)}【${escapeHtml(c.actName)}】</div>
+            <div style="font-size:9.5pt;line-height:1.42;">${escapeHtml(c.desc)}</div>
+          </td>
+          ${checks}
+        </tr>`;
+      }).join("");
+
+      return `<div class="${pageBreak ? "page-break" : ""}">
+        <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
+          <colgroup>
+            <col style="width:36px;" />
+            <col style="width:auto;" />
+            <col style="width:46px;" />
+            <col style="width:46px;" />
+            <col style="width:46px;" />
+            <col style="width:46px;" />
+          </colgroup>
+          <tr>
+            <th colspan="6" style="background-color:#e6efe9;text-align:left;padding:7px 10px;font-weight:normal;border:1px solid #222;">
+              <div style="font-size:13pt;font-weight:bold;margin-bottom:3px;">桃園市私立中旭園托嬰中心  ${state.rocYear}年 ${state.month} 月 適性發展月活動紀錄</div>
+              <div style="font-size:10.5pt;">班級：${clsNameMap[state.classKey]}    姓名：${escapeHtml(ch.name)}    身高：${escapeHtml(ch.height)}  體重：${escapeHtml(ch.weight)}</div>
+            </th>
+          </tr>
+          <tr>
+            <th style="border:1px solid #222;background-color:#eef2ee;text-align:center;padding:5px;">領域</th>
+            <th style="border:1px solid #222;background-color:#eef2ee;text-align:center;padding:5px;">適性發展活動</th>
+            <th style="border:1px solid #222;background-color:#eef2ee;text-align:center;padding:5px;">總是</th>
+            <th style="border:1px solid #222;background-color:#eef2ee;text-align:center;padding:5px;">常常</th>
+            <th style="border:1px solid #222;background-color:#eef2ee;text-align:center;padding:5px;">偶爾</th>
+            <th style="border:1px solid #222;background-color:#eef2ee;text-align:center;padding:5px;">較少</th>
+          </tr>
+          ${rows}
+          <tr>
+            <td style="text-align:center;vertical-align:middle;font-weight:bold;background-color:#f9faf9;line-height:1.3;">愛<br>的<br>叮<br>嚀</td>
+            <td colspan="5" style="padding:7px 9px;font-size:9.8pt;line-height:1.45;border:1px solid #222;">${escapeHtml(ch.loveNote || "")}</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;vertical-align:middle;font-weight:bold;background-color:#f9faf9;line-height:1.3;">活<br>動<br>照<br>片</td>
+            <td colspan="5" style="text-align:center;vertical-align:middle;padding:8px;border:1px solid #222;">
+              <img src="${state.photo1}" style="width:195px;height:140px;object-fit:cover;margin-right:14px;border:1px solid #bbb;" />
+              <img src="${state.photo2}" style="width:195px;height:140px;object-fit:cover;border:1px solid #bbb;" />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="6" style="padding:7px 10px;font-size:10.5pt;border:1px solid #222;">
+              紀錄者：${escapeHtml(ch.recorder || "________")}      主任：________      家長簽名：________
+            </td>
+          </tr>
+        </table>
+      </div>`;
+    }
+
+    function downloadWordDoc(filename, title, bodyHtml, landscape = true) {
+      const pageSize = landscape ? "A4 landscape" : "A4 portrait";
+      const marginCss = landscape ? "1.1cm 1.2cm" : "1.0cm 1.2cm";
+      const htmlContent = `<!DOCTYPE html>
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="utf-8">
+<title>${escapeHtml(title)}</title>
+<style>
+  @page { size: ${pageSize}; margin: ${marginCss}; }
+  body { font-family: "標楷體", "Microsoft JhengHei", sans-serif; font-size: 10.5pt; color: #111; margin: 0; padding: 0; }
+  h2.plan-title { text-align: left; margin: 0 0 8px; font-size: 14pt; font-weight: bold; }
+  .meta { margin-bottom: 6px; font-size: 10pt; line-height: 1.45; }
+  table.plan-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  table.plan-table th, table.plan-table td { border: 1px solid #222; padding: 5px 6px; vertical-align: top; word-wrap: break-word; font-size: 9.2pt; line-height: 1.35; }
+  table.plan-table th { background-color: #eef2ee; font-weight: bold; text-align: center; }
+  .page-break { page-break-before: always; }
+</style>
+</head>
+<body>${bodyHtml}</body>
+</html>`;
+      const blob = new Blob(["\ufeff", htmlContent], { type: "application/msword;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast(`已匯出 Word (A4)：${filename}`);
+    }
+
+    document.getElementById("selClass").addEventListener("change", e => {
+      state.classKey = e.target.value;
+      document.getElementById("inpRoster").value = state.rosterByClass[state.classKey] || DEFAULT_ROSTERS[state.classKey];
+      const list = state.childrenByClass[state.classKey] || [];
+      if (list.length > 0 && !list.some(c => c.id === state.selectedChildId[state.classKey])) {
+        state.selectedChildId[state.classKey] = list[0].id;
+      }
+      saveState();
+      renderTables();
+      syncEditorFromActiveCell();
+    });
+
+    document.getElementById("btnImportStudents").addEventListener("click", () => {
+      const raw = document.getElementById("txtStudentImport").value;
+      const imported = parseStudentsText(raw);
+      if (imported.length === 0) {
+        showToast("請先在學生名單輸入框貼上學生姓名");
+        return;
+      }
+      state.childrenByClass[state.classKey] = imported;
+      state.selectedChildId[state.classKey] = imported[0].id;
+      updateRosterSummaryFromChildren();
+      saveState();
+      renderTables();
+      syncEditorFromActiveCell();
+      showToast(`已匯入 ${imported.length} 位本班學生名單！`);
+    });
+
+    document.getElementById("btnAppendStudents").addEventListener("click", () => {
+      const raw = document.getElementById("txtStudentImport").value;
+      const imported = parseStudentsText(raw);
+      if (imported.length === 0) {
+        showToast("請先在學生名單輸入框貼上學生姓名");
+        return;
+      }
+      const existing = state.childrenByClass[state.classKey] || [];
+      state.childrenByClass[state.classKey] = [...existing, ...imported];
+      if (!state.selectedChildId[state.classKey]) {
+        state.selectedChildId[state.classKey] = imported[0].id;
+      }
+      updateRosterSummaryFromChildren();
+      saveState();
+      renderTables();
+      syncEditorFromActiveCell();
+      showToast(`已附加 ${imported.length} 位學生至本班名單！`);
+    });
+
+    document.getElementById("btnLoadSampleStudents").addEventListener("click", () => {
+      document.getElementById("txtStudentImport").value = [
+        "蔣秉均, 74.5cm, 9.3kg, 王唯芬",
+        "黃宇安, 74.8cm, 9.1kg, 王唯芬",
+        "李艾珈, 73cm, 10.2kg, 王唯芬",
+        "烏晟熹, 74.5cm, 9.6kg, 王唯芬",
+        "杜躍馳, 70cm, 9.2kg, 王唯芬"
+      ].join("\n");
+      showToast("已載入丸子班／中寶班範例名單");
+    });
+
+    document.getElementById("btnGenPlan").addEventListener("click", () => {
+      state.classKey = document.getElementById("selClass").value;
+      state.rocYear = parseInt(document.getElementById("inpRocYear").value, 10) || 116;
+      state.month = parseInt(document.getElementById("selMonth").value, 10) || 1;
+      state.ageRange = document.getElementById("inpAgeRange").value.trim();
+      state.materials = document.getElementById("inpMaterials").value.trim();
+      state.rosterByClass[state.classKey] = document.getElementById("inpRoster").value;
+      generateMonthPlan(state.classKey, state.rocYear, state.month);
+      renderTables();
+      syncEditorFromActiveCell();
+      showToast("已依指引生成本班不重複月計劃！");
+    });
+
+    document.getElementById("btnResetHistory").addEventListener("click", () => {
+      state.usedCodesByClass[state.classKey] = [];
+      saveState();
+      showToast("已重置本班已排課指標紀錄，下次生成將重新完整輪替。");
+    });
+
+    document.getElementById("btnLoadSampleList").addEventListener("click", () => {
+      document.getElementById("txtImportList").value = [
+        "玉米畫｜藝術/塗鴉｜好餓好餓的毛毛蟲｜01/05(二)",
+        "顏色配對｜教玩具操作｜可愛動物｜01/07(四)",
+        "我會種花｜自由探索｜小青蛙｜01/12(二)",
+        "小豬洗澡｜常規/自理訓練｜我會說請｜01/14(四)",
+        "球球彈進杯｜感覺統合｜我最喜歡車子｜01/19(二)",
+        "尋寶感官盆｜感覺統合｜誰在森林裡｜01/21(四)",
+        "摘小黃瓜｜常規/自理訓練｜分享｜01/26(二)"
+      ].join("\n");
+      showToast("已載入 116年1月 粉專活動範例清單");
+    });
+
+    document.getElementById("btnImportList").addEventListener("click", () => {
+      const rawLines = document.getElementById("txtImportList").value
+        .split(/\r?\n/)
+        .map(l => l.trim())
+        .filter(Boolean);
+      if (rawLines.length === 0) {
+        showToast("請先輸入或載入活動清單內容");
+        return;
+      }
+      const weeks = ensureCurrentPlan();
+      rawLines.forEach((line, idx) => {
+        const parts = line.split(/[｜|]/).map(s => s.trim());
+        const actName = parts[0] || `特色活動 ${idx + 1}`;
+        const pArea = PRACTICE_AREAS.includes(parts[1]) ? parts[1] : PRACTICE_AREAS[idx % PRACTICE_AREAS.length];
+        const book = parts[2] || BOOKS[idx % BOOKS.length];
+        const dateLabel = parts[3] || buildWeekDayLabel(state.month, idx % 5, idx % 5);
+        const wIdx = idx % 5;
+        const dom = DOMAINS[idx % DOMAINS.length];
+        const cell = weeks[wIdx].cells[dom];
+        cell.actName = actName;
+        cell.practiceArea = pArea;
+        cell.book = book;
+        cell.dateLabel = dateLabel;
+        cell.desc = `結合「${actName}」進行引導，配合「${book}」共讀延伸，觀察幼兒於${dom}領域（${cell.code}）之參與與操作表現。`;
+      });
+      saveState();
+      renderTables();
+      syncEditorFromActiveCell();
+      showToast(`已匯入 ${rawLines.length} 項活動並更新評鑑版與老師版！`);
+    });
+
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        const tab = btn.dataset.tab;
+        state.activeTab = tab;
+        document.getElementById("viewEval").classList.toggle("hidden", tab !== "eval");
+        document.getElementById("viewTeacher").classList.toggle("hidden", tab !== "teacher");
+        document.getElementById("viewChild").classList.toggle("hidden", tab !== "child");
+      });
+    });
+
+    ["editCode", "editDomain", "editActName", "editDate", "editPracticeArea", "editBook", "editFocus", "editDesc", "txtObservation"]
+      .forEach(id => {
+        document.getElementById(id).addEventListener("input", applyEditorToActiveCell);
+        document.getElementById(id).addEventListener("change", applyEditorToActiveCell);
+      });
+
+    function handlePhotoUpload(inputId, stateKey) {
+      document.getElementById(inputId).addEventListener("change", e => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = ev => {
+          state[stateKey] = ev.target.result;
+          document.getElementById(stateKey === "photo1" ? "imgPhoto1" : "imgPhoto2").src = state[stateKey];
+          saveState();
+          renderChildRecordView();
+          showToast("照片已上傳並同步至適性紀錄表");
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+    handlePhotoUpload("filePhoto1", "photo1");
+    handlePhotoUpload("filePhoto2", "photo2");
+
+    document.getElementById("btnDemoPhotos").addEventListener("click", () => {
+      const c = getActiveCell();
+      state.photo1 = createDemoDataUrl(`照片 1：${c.actName || "探索操作"}`, "#e3efe8", `${c.domain}・動手嘗試與觀察`);
+      state.photo2 = createDemoDataUrl(`照片 2：${c.actName || "互動回應"}`, "#faecd9", `${c.code}・師生互動與成果表現`);
+      document.getElementById("imgPhoto1").src = state.photo1;
+      document.getElementById("imgPhoto2").src = state.photo2;
+      saveState();
+      renderChildRecordView();
+      showToast("已載入兩張示範活動照片");
+    });
+
+    document.getElementById("btnGenPhotoTemplate").addEventListener("click", () => {
+      const c = getActiveCell();
+      const child = getCurrentChild();
+      const name = child ? child.name : "幼兒";
+      const tpl = `【${c.domain}｜${c.code} ${c.goal}—${c.actName}】\n` +
+        `• 照片一（探索／操作過程）：${name}在${c.actName}活動中，專注注視教具並嘗試伸手操作，展現${c.focus}。\n` +
+        `• 照片二（互動／完成表現）：在老師溫柔引導與陪伴下，${name}持續參與互動並做出自然回應，累積${c.domain}領域的適性發展經驗。`;
+      document.getElementById("txtObservation").value = tpl;
+      applyEditorToActiveCell();
+      showToast("已依五大領域與雙照片生成觀察模板！");
+    });
+
+    let lastPolishedObs = "";
+    document.getElementById("btnPolishObs").addEventListener("click", () => {
+      const raw = document.getElementById("txtObservation").value;
+      const res = polishTraditionalChinese(raw);
+      lastPolishedObs = res.polished;
+      const box = document.getElementById("obsCheckReport");
+      box.classList.remove("hidden");
+      box.textContent = `【檢查與優化報告】\n・${res.changes.join("\n・")}\n\n【建議潤飾文字】\n${res.polished}`;
+      document.getElementById("btnApplyObsPolish").classList.remove("hidden");
+    });
+
+    document.getElementById("btnApplyObsPolish").addEventListener("click", () => {
+      if (!lastPolishedObs) return;
+      document.getElementById("txtObservation").value = lastPolishedObs;
+      applyEditorToActiveCell();
+      showToast("已套用優化後的觀察文字！");
+    });
+
+    document.querySelectorAll(".ver-card").forEach(card => {
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".ver-card").forEach(v => v.classList.remove("active"));
+        card.classList.add("active");
+        state.selectedLoveVersion = card.dataset.ver;
+        saveState();
+      });
+    });
+
+    document.getElementById("btnRefreshLoveVersions").addEventListener("click", () => {
+      syncEditorFromActiveCell();
+      showToast("已依目前活動更新三種愛的叮嚀版本");
+    });
+
+    document.getElementById("btnApplyLoveVersion").addEventListener("click", () => {
+      const chosen = state.loveVersions[state.selectedLoveVersion] || state.loveVersions.progress;
+      document.getElementById("txtFinalLoveNote").value = chosen;
+      const child = getCurrentChild();
+      if (child) {
+        child.loveNote = chosen;
+        saveState();
+        renderChildRecordView();
+      }
+      showToast("已帶入所選「愛的叮嚀」版本，可直接修改！");
+    });
+
+    document.getElementById("txtFinalLoveNote").addEventListener("input", () => {
+      const child = getCurrentChild();
+      if (child) {
+        child.loveNote = document.getElementById("txtFinalLoveNote").value;
+        saveState();
+        renderChildRecordView();
+      }
+    });
+
+    document.getElementById("btnPolishLove").addEventListener("click", () => {
+      const cur = document.getElementById("txtFinalLoveNote").value;
+      const res = polishTraditionalChinese(cur);
+      document.getElementById("txtFinalLoveNote").value = res.polished;
+      const child = getCurrentChild();
+      if (child) {
+        child.loveNote = res.polished;
+        saveState();
+        renderChildRecordView();
+      }
+      showToast(`已潤飾愛的叮嚀（${res.changes[0]}）`);
+    });
+
+    document.getElementById("selChild").addEventListener("change", e => {
+      state.selectedChildId[state.classKey] = e.target.value;
+      saveState();
+      renderChildRecordView();
+      syncEditorFromActiveCell();
+    });
+
+    ["inpChildName", "inpChildHeight", "inpChildWeight", "inpRecorder"].forEach(id => {
+      document.getElementById(id).addEventListener("input", () => {
+        const child = getCurrentChild();
+        if (!child) return;
+        child.name = document.getElementById("inpChildName").value.trim() || child.name;
+        child.height = document.getElementById("inpChildHeight").value.trim();
+        child.weight = document.getElementById("inpChildWeight").value.trim();
+        child.recorder = document.getElementById("inpRecorder").value.trim();
+        saveState();
+        renderChildRecordView();
+      });
+    });
+
+    document.getElementById("btnAddChild").addEventListener("click", () => {
+      const newId = "c_" + Date.now();
+      const newChild = {
+        id: newId,
+        name: "新入園寶貝",
+        height: "65cm",
+        weight: "7.5kg",
+        recorder: "班級老師",
+        ratings: { "身體動作": "常常", "社會情緒": "常常", "語言溝通": "偶爾", "認知探索": "常常", "生活自理": "偶爾" },
+        loveNote: "在適性發展活動中，寶貝能以自己的步調探索環境，老師會持續溫柔陪伴與觀察！"
+      };
+      state.childrenByClass[state.classKey].push(newChild);
+      state.selectedChildId[state.classKey] = newId;
+      updateRosterSummaryFromChildren();
+      saveState();
+      renderChildRecordView();
+      showToast("已新增幼兒檔案，請於上方輸入姓名、身高與體重");
+    });
+
+    document.getElementById("btnSyncChildFromPlan").addEventListener("click", () => {
+      renderChildRecordView();
+      showToast("已同步本月五大領域指標與活動至適性紀錄表");
+    });
+
+    document.getElementById("btnExportEvalWord").addEventListener("click", () => {
+      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
+      const weeks = ensureCurrentPlan();
+      const rosterLines = (state.rosterByClass[state.classKey] || "").split("｜").map(s => escapeHtml(s.trim())).filter(Boolean);
+
+      const rowsHtml = weeks.map(wk => {
+        const tds = DOMAINS.map(dom => {
+          const c = wk.cells[dom];
+          return `<td><strong>${escapeHtml(c.code)}</strong><br>${escapeHtml(c.goal)}<br><strong>【${escapeHtml(c.actName)}】</strong></td>`;
+        }).join("");
+        return `<tr><td style="text-align:center;font-weight:bold;">${wk.weekName}<br>活動內容</td>${tds}</tr>`;
+      }).join("");
+
+      const body = `<h2 class="plan-title">中旭園托嬰中心  適性發展活動 ${state.rocYear}年${state.month}月計畫  年齡：${escapeHtml(state.ageRange)}</h2>
+        <div class="meta">${rosterLines.join("<br>")}</div>
+        <table class="plan-table">
+          <thead>
+            <tr>
+              <th style="width:74px;">週次/領域</th>
+              <th>身體動作</th>
+              <th>社會情緒</th>
+              <th>語言溝通</th>
+              <th>認知探索</th>
+              <th>生活自理</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+            <tr>
+              <td style="text-align:center;font-weight:bold;">教材、情境、環境調整</td>
+              <td colspan="5">${escapeHtml(state.materials)}</td>
+            </tr>
+            <tr>
+              <td colspan="6" style="padding:10px 14px;font-weight:bold;">
+                托育人員簽名：____________________________      主任簽名：____________________________
+              </td>
+            </tr>
+          </tbody>
+        </table>`;
+
+      downloadWordDoc(`${state.rocYear}年${state.month}月活動計畫${clsNameMap[state.classKey]}(評鑑版).doc`, `評鑑版月計劃`, body, true);
+    });
+
+    document.getElementById("btnExportTeacherWord").addEventListener("click", () => {
+      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
+      const weeks = ensureCurrentPlan();
+
+      const rowsHtml = weeks.map((wk, wIdx) => {
+        const tds = DOMAINS.map(dom => {
+          const c = wk.cells[dom];
+          const photoHint = (wIdx === 4 && dom === "認知探索")
+            ? `<br><span style="color:#b54848;">(${state.month}/13前生活花絮照片要先交出來)</span>`
+            : "";
+          return `<td>
+            <div style="font-weight:bold;">${escapeHtml(c.dateLabel)}</div>
+            <div style="font-weight:bold;">【${escapeHtml(c.actName)}】</div>
+            <div>領域：${escapeHtml(c.practiceArea)}</div>
+            <div>繪本：${escapeHtml(c.book)}</div>
+            ${photoHint}
+          </td>`;
+        }).join("");
+        return `<tr><td style="text-align:center;font-weight:bold;">${wk.weekName}<br>活動內容</td>${tds}</tr>`;
+      }).join("");
+
+      const body = `<h2 class="plan-title">中旭園托嬰中心  適性發展活動 ${state.rocYear}年${state.month}月計畫</h2>
+        <table class="plan-table">
+          <thead>
+            <tr>
+              <th style="width:74px;">週次/領域</th>
+              <th>身體動作</th>
+              <th>社會情緒</th>
+              <th>語言溝通</th>
+              <th>認知探索</th>
+              <th>生活自理</th>
+            </tr>
+          </thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>`;
+
+      downloadWordDoc(`${state.rocYear}年${state.month}月活動計畫${clsNameMap[state.classKey]}(老師版).doc`, `老師版月計劃`, body, true);
+    });
+
+    document.getElementById("btnExportChildWord").addEventListener("click", () => {
+      const child = getCurrentChild();
+      if (!child) return;
+      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
+      const weeks = ensureCurrentPlan();
+      const body = buildMarukoChildPageHtml(child, clsNameMap, weeks, false);
+      downloadWordDoc(`${state.month}月適性歸檔_${clsNameMap[state.classKey]}_${child.name}.doc`, `${state.month}月適性歸檔_${child.name}`, body, false);
+    });
+
+    document.getElementById("btnExportAllChildrenWord").addEventListener("click", () => {
+      const list = state.childrenByClass[state.classKey] || [];
+      if (list.length === 0) return;
+      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
+      const weeks = ensureCurrentPlan();
+      const pagesHtml = list.map((ch, idx) => buildMarukoChildPageHtml(ch, clsNameMap, weeks, idx > 0)).join("");
+      downloadWordDoc(`${state.rocYear}年${state.month}月_${clsNameMap[state.classKey]}全班適性歸檔.doc`, `${clsNameMap[state.classKey]}全班適性歸檔`, pagesHtml, false);
+    });
+
+    loadState();
+    document.getElementById("selClass").value = state.classKey;
+    document.getElementById("inpRocYear").value = state.rocYear;
+    document.getElementById("selMonth").value = state.month;
+    document.getElementById("inpAgeRange").value = state.ageRange;
+    document.getElementById("inpMaterials").value = state.materials;
+    document.getElementById("inpRoster").value = state.rosterByClass[state.classKey] || DEFAULT_ROSTERS[state.classKey];
+    document.getElementById("imgPhoto1").src = state.photo1;
+    document.getElementById("imgPhoto2").src = state.photo2;
+    ensureCurrentPlan();
+    renderTables();
+    syncEditorFromActiveCell();
+  </script>
+</body>
+</html>
