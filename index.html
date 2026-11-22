@@ -467,7 +467,7 @@
           <strong>📌 操作說明：</strong><br />
           1. 先選好<strong>班別與月份</strong>，按「依指引生成本班月計劃」，系統會自動挑出未排過的新指標編碼。<br />
           2. 接著在左側<strong>匯入粉專或特色活動清單</strong>（如玉米畫、顏色配對、我會種花等），按「匯入清單並更新月計劃」，即可同時生成<strong>評鑑版</strong>與<strong>老師版</strong>表格。<br />
-          3. 在「幼兒個別適性紀錄（歸檔公版）」分頁中，可直接<strong>批次匯入班級學生名單</strong>（支援姓名、身高、體重、紀錄者），並一鍵批次匯出全班 Word！
+          3. 匯出適性紀錄時，個人與全班都會比照丸子班公版格式（含 5 領域活動、勾選格、愛的叮嚀、雙照片與簽名列）；月計劃也會分開匯出<strong>評鑑版</strong>與<strong>老師版</strong> Word (A4)。
         </div>
       </div>
     </section>
@@ -537,12 +537,12 @@
         <div style="margin-bottom: 14px; background: #fcfaf5; border: 1px solid var(--border); padding: 12px; border-radius: 10px;">
           <div class="field">
             <label for="txtStudentImport">👥 匯入本班學生名單（每行一位，可用逗號／頓號／斜線／製表符分隔：<code>姓名, 身高, 體重, 紀錄者</code>，或直接貼上名字清單）</label>
-            <textarea id="txtStudentImport" style="min-height: 76px;" placeholder="例如：&#10;鄭硯宇, 72.5cm, 10.1kg, 小寶班老師&#10;林洛彤, 58cm, 5.7kg, 小寶班老師&#10;或直接貼上：王小明、陳小美、林小華"></textarea>
+            <textarea id="txtStudentImport" style="min-height: 76px;" placeholder="例如：&#10;蔣秉均, 74.5cm, 9.3kg, 中寶班老師&#10;黃宇安, 74.8cm, 9.1kg, 中寶班老師"></textarea>
           </div>
           <div class="btn-row" style="margin-top: 8px;">
             <button class="btn-accent btn-sm" id="btnImportStudents">📥 匯入本班學生名單</button>
             <button class="btn-outline btn-sm" id="btnAppendStudents">➕ 附加至現有名單</button>
-            <button class="btn-soft btn-sm" id="btnLoadSampleStudents">載入小寶班範例名單</button>
+            <button class="btn-soft btn-sm" id="btnLoadSampleStudents">載入丸子班／中寶班範例名單</button>
             <span id="studentCountBadge" style="font-size: 0.84rem; color: var(--primary-dark); font-weight: 700;"></span>
           </div>
         </div>
@@ -740,16 +740,17 @@
         { code: "IV-1-4", domain: "身體動作", goal: "能將玩具放入或倒出容器", act: "放進去拿出來", focus: "握放協調與空間因果概念", desc: "提供空盒與小玩具，示範放入與倒出並口語互動。" },
         { code: "IV-1-5", domain: "身體動作", goal: "能翻硬紙板書", act: "寶寶翻翻書", focus: "手指翻頁與閱讀興趣", desc: "提供厚紙板書陪伴共讀，鼓勵動手翻頁與指認圖案。" },
         { code: "IV-1-6", domain: "身體動作", goal: "能丟擲玩具", act: "玩丟丟樂／圈圈挑戰", focus: "丟擲協調與距離因果經驗", desc: "準備軟球、圈圈與紙箱，示範丟入目標並調整距離。" },
+        { code: "IV-1-7", domain: "身體動作", goal: "能以兩指（拇指、食指）撿拾物品", act: "孔雀開屏", focus: "兩指捏取與手部小肌肉控制", desc: "引導以拇指與食指捏取或拉伸色彩物件，練習精細動作與手眼協調。" },
         { code: "IV-2-1", domain: "社會情緒", goal: "能與別的孩子坐在一起玩", act: "坐在一起", focus: "平行遊戲與同儕共處", desc: "準備充足同質教具，讓幼兒安心坐在同伴旁各自操作。" },
         { code: "IV-2-2", domain: "社會情緒", goal: "能在提示下做基本社交動作", act: "揮手拜拜", focus: "謝謝、拜拜等社交行為", desc: "在接送與拿取物品時提示揮手、點頭或說謝謝。" },
         { code: "IV-2-5", domain: "社會情緒", goal: "會用行為或語言表達自主性", act: "我不要", focus: "自我意願表達與尊重界線", desc: "在遊戲選擇中引導以搖頭或口語「不要」清楚表達想法。" },
         { code: "IV-2-6", domain: "社會情緒", goal: "練習處理分離焦慮", act: "我想抱抱", focus: "分離安撫與安全堡壘建立", desc: "接送時給予擁抱與安撫物陪伴，協助平緩情緒並轉移注意力。" },
-        { code: "IV-3-1", domain: "語言溝通", goal: "能講至少十個單字", act: "說說看", focus: "單字與疊字詞彙累積", desc: "展示熟悉物品或圖卡提問「這是什麼」，鼓勵仿說與命名。" },
+        { code: "IV-3-1", domain: "語言溝通", goal: "能講至少十個單字", act: "說說看／巫婆湯畫", focus: "單字與疊字詞彙累積", desc: "展示熟悉物品或圖卡提問「這是什麼」，鼓勵仿說與命名。" },
         { code: "IV-3-4", domain: "語言溝通", goal: "能理解簡單日常生活用語", act: "指認物品", focus: "日常用語理解與物品指認", desc: "請幼兒指認熟悉的物品或動物圖片，肯定理解表現。" },
         { code: "IV-3-6", domain: "語言溝通", goal: "能回答簡單問題", act: "要不要", focus: "簡單問答理解與口語回應", desc: "以點心或散步情境詢問「要不要」，鼓勵以動作或語彙回答。" },
         { code: "IV-4-1", domain: "認知探索", goal: "能遵從簡單的指令", act: "手在哪裡", focus: "聽指令與身體部位指認", desc: "結合兒歌與遊戲問五官或身體部位在哪裡，練習聽指令指認。" },
         { code: "IV-4-3", domain: "認知探索", goal: "能配對簡單形狀", act: "配對遊戲", focus: "形狀辨識與對應放入", desc: "提供形狀積木或嵌入盒，先描述形狀再引導對應放入。" },
-        { code: "IV-5-2", domain: "生活自理", goal: "能用吸管喝水", act: "我會喝水", focus: "吸管與學習杯喝水技能", desc: "喝水時間提供學習杯或吸管練習喝水，鼓勵嘗試不灑出。" },
+        { code: "IV-5-1", domain: "生活自理", goal: "能用學習杯喝水", act: "我會喝水", focus: "雙手扶握與自主飲水習慣", desc: "喝水時間引導雙手拿取並扶穩學習杯或水壺，練習自主喝水。" },
         { code: "IV-5-5", domain: "生活自理", goal: "練習洗手的技巧", act: "清潔寶寶", focus: "洗手與擦嘴清潔習慣", desc: "用餐或如廁後示範搓洗雙手與小毛巾擦嘴，鼓勵動手做。" }
       ],
       large: [
@@ -791,8 +792,11 @@
         { id: "c_s_5", name: "藍芝穎", height: "66cm", weight: "7.7kg", recorder: "小寶班老師", ratings: { "身體動作": "偶爾", "社會情緒": "總是", "語言溝通": "偶爾", "認知探索": "常常", "生活自理": "偶爾" }, loveNote: "在「彩虹瓶」活動中，芝穎剛看到彩虹瓶時眼睛馬上亮了起來，對瓶內繽紛、不同於平時日光下的色彩感到十分好奇！老師協助芝穎拿著彩虹瓶轉換不同角度觀察，讓芝穎發現色彩也會隨著角度產生不同變化。透過活動滿足芝穎對視覺探索的好奇，也累積不同的感官經驗！" }
       ],
       mid: [
-        { id: "c_m_1", name: "邱宇綸", height: "78cm", weight: "10.8kg", recorder: "吳詩儂", ratings: { "身體動作": "常常", "社會情緒": "總是", "語言溝通": "常常", "認知探索": "常常", "生活自理": "常常" }, loveNote: "宇綸在活動中能專注觀察並嘗試動手操作，與老師互動時眼神明亮、反應自然，展現穩定的探索興趣！" },
-        { id: "c_m_2", name: "烏晟熹", height: "76cm", weight: "10.2kg", recorder: "王唯芬", ratings: { "身體動作": "常常", "社會情緒": "常常", "語言溝通": "偶爾", "認知探索": "常常", "生活自理": "常常" }, loveNote: "晟熹在操作教具時願意嘗試伸手抓取與放入，老師會陪伴一步步練習，累積自信與手眼協調經驗！" }
+        { id: "c_m_1", name: "蔣秉均", height: "74.5cm", weight: "9.3kg", recorder: "王唯芬", ratings: { "身體動作": "常常", "社會情緒": "總是", "語言溝通": "總是", "認知探索": "常常", "生活自理": "總是" }, loveNote: "在「孔雀開屏」活動中，秉均對繽紛色彩很感興趣，也願意跟著老師探索，操作時，秉均需要時間熟悉套取橡皮筋的方法，老師會耐心引導陪伴並給予鼓勵，幫助秉均累積手部操作與協調經驗，漸漸培養手部力量與雙手的協調能力且秉均也能享受完成任務的成就感！" },
+        { id: "c_m_2", name: "黃宇安", height: "74.8cm", weight: "9.1kg", recorder: "王唯芬", ratings: { "身體動作": "常常", "社會情緒": "常常", "語言溝通": "常常", "認知探索": "常常", "生活自理": "常常" }, loveNote: "在「串串糖葫蘆」活動中，宇安需要一些時間觀察與摸索，過程中給予充分的嘗試時間，並適時提供協助，讓宇安在操作與探索中累積經驗，培養認知能力及解決問題的信心。當成功將水果片串起時，宇安露出開心的表情，也感受到操作成功所帶來的成就感。" },
+        { id: "c_m_3", name: "李艾珈", height: "73cm", weight: "10.2kg", recorder: "王唯芬", ratings: { "身體動作": "偶爾", "社會情緒": "總是", "語言溝通": "常常", "認知探索": "常常", "生活自理": "常常" }, loveNote: "艾珈在「巫婆湯畫」活動中展現對色彩的興趣，透過觀察老師示範與聆聽引導，累積語言理解與表達的經驗。透過日常生活對話、共讀繪本或唱歌，陪伴艾珈認識不同顏色，並反覆介紹簡單詞語，增加語言學習與表達的機會。" },
+        { id: "c_m_4", name: "烏晟熹", height: "74.5cm", weight: "9.6kg", recorder: "王唯芬", ratings: { "身體動作": "偶爾", "社會情緒": "常常", "語言溝通": "常常", "認知探索": "偶爾", "生活自理": "常常" }, loveNote: "在「孔雀開屏」活動中，晟熹對繽紛的顏色很感興趣，也願意跟著老師探索。操作時，晟熹需要時間熟悉套取橡皮筋的方法，老師會耐心引導陪伴並給予鼓勵，幫助晟熹累積手部操作與協調經驗，漸漸培養手部力量與雙手的協調能力且晟熹也能享受完成任務的成就感喔！" },
+        { id: "c_m_5", name: "杜躍馳", height: "70cm", weight: "9.2kg", recorder: "王唯芬", ratings: { "身體動作": "偶爾", "社會情緒": "總是", "語言溝通": "常常", "認知探索": "偶爾", "生活自理": "常常" }, loveNote: "在「孔雀開屏」活動中，躍馳對繽紛的色彩很感興趣，也願意跟著老師一同探索！在操作活動時，躍馳需要時間熟悉套取橡皮筋的方法，而老師會在過程中給予協助及鼓勵，幫助躍馳完成活動。透過套取橡皮筋的過程，慢慢增加手部力量，相信躍馳會慢慢累積更多小手操作的經驗喔！" }
       ],
       large: [
         { id: "c_l_1", name: "陳品睿", height: "85cm", weight: "12.4kg", recorder: "大寶班老師", ratings: { "身體動作": "總是", "社會情緒": "常常", "語言溝通": "常常", "認知探索": "總是", "生活自理": "常常" }, loveNote: "品睿在團體與探索活動中能勇敢嘗試新玩法，也喜歡與老師分享自己的發現，表現越來越棒！" }
@@ -810,7 +814,7 @@
       return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
     }
 
-    const STORAGE_KEY = "zhongxuyuan_adaptive_workspace_v3";
+    const STORAGE_KEY = "zhongxuyuan_adaptive_workspace_v4";
 
     let state = {
       classKey: "mid",
@@ -1298,8 +1302,73 @@
         .replace(/"/g, "&quot;");
     }
 
+    // 比照「丸子班適性公版」的單頁 Word 表格產生器（個人與全班皆共用此精準公版結構）
+    function buildMarukoChildPageHtml(ch, clsNameMap, weeks, pageBreak = false) {
+      const firstWeek = weeks[0];
+      const rows = DOMAINS.map(dom => {
+        const c = firstWeek.cells[dom];
+        const curR = (ch.ratings && ch.ratings[dom]) || "常常";
+        const checks = ["總是", "常常", "偶爾", "較少"]
+          .map(op => `<td style="text-align:center;vertical-align:middle;font-size:11pt;font-weight:bold;">${curR === op ? "ˇ" : ""}</td>`)
+          .join("");
+        return `<tr>
+          <td style="text-align:center;vertical-align:middle;font-weight:bold;background-color:#f9faf9;line-height:1.25;">${dom.split("").join("<br>")}</td>
+          <td style="padding:6px 8px;">
+            <div style="font-weight:bold;margin-bottom:2px;">${escapeHtml(c.code)} ${escapeHtml(c.goal)}【${escapeHtml(c.actName)}】</div>
+            <div style="font-size:9.5pt;line-height:1.42;">${escapeHtml(c.desc)}</div>
+          </td>
+          ${checks}
+        </tr>`;
+      }).join("");
+
+      return `<div class="${pageBreak ? "page-break" : ""}">
+        <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
+          <colgroup>
+            <col style="width:36px;" />
+            <col style="width:auto;" />
+            <col style="width:46px;" />
+            <col style="width:46px;" />
+            <col style="width:46px;" />
+            <col style="width:46px;" />
+          </colgroup>
+          <tr>
+            <th colspan="6" style="background-color:#e6efe9;text-align:left;padding:7px 10px;font-weight:normal;border:1px solid #222;">
+              <div style="font-size:13pt;font-weight:bold;margin-bottom:3px;">桃園市私立中旭園托嬰中心  ${state.rocYear}年 ${state.month} 月 適性發展月活動紀錄</div>
+              <div style="font-size:10.5pt;">班級：${clsNameMap[state.classKey]}    姓名：${escapeHtml(ch.name)}    身高：${escapeHtml(ch.height)}  體重：${escapeHtml(ch.weight)}</div>
+            </th>
+          </tr>
+          <tr>
+            <th style="border:1px solid #222;background-color:#eef2ee;text-align:center;padding:5px;">領域</th>
+            <th style="border:1px solid #222;background-color:#eef2ee;text-align:center;padding:5px;">適性發展活動</th>
+            <th style="border:1px solid #222;background-color:#eef2ee;text-align:center;padding:5px;">總是</th>
+            <th style="border:1px solid #222;background-color:#eef2ee;text-align:center;padding:5px;">常常</th>
+            <th style="border:1px solid #222;background-color:#eef2ee;text-align:center;padding:5px;">偶爾</th>
+            <th style="border:1px solid #222;background-color:#eef2ee;text-align:center;padding:5px;">較少</th>
+          </tr>
+          ${rows}
+          <tr>
+            <td style="text-align:center;vertical-align:middle;font-weight:bold;background-color:#f9faf9;line-height:1.3;">愛<br>的<br>叮<br>嚀</td>
+            <td colspan="5" style="padding:7px 9px;font-size:9.8pt;line-height:1.45;border:1px solid #222;">${escapeHtml(ch.loveNote || "")}</td>
+          </tr>
+          <tr>
+            <td style="text-align:center;vertical-align:middle;font-weight:bold;background-color:#f9faf9;line-height:1.3;">活<br>動<br>照<br>片</td>
+            <td colspan="5" style="text-align:center;vertical-align:middle;padding:8px;border:1px solid #222;">
+              <img src="${state.photo1}" style="width:195px;height:140px;object-fit:cover;margin-right:14px;border:1px solid #bbb;" />
+              <img src="${state.photo2}" style="width:195px;height:140px;object-fit:cover;border:1px solid #bbb;" />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="6" style="padding:7px 10px;font-size:10.5pt;border:1px solid #222;">
+              紀錄者：${escapeHtml(ch.recorder || "________")}      主任：________      家長簽名：________
+            </td>
+          </tr>
+        </table>
+      </div>`;
+    }
+
     function downloadWordDoc(filename, title, bodyHtml, landscape = true) {
       const pageSize = landscape ? "A4 landscape" : "A4 portrait";
+      const marginCss = landscape ? "1.1cm 1.2cm" : "1.0cm 1.2cm";
       const htmlContent = `<!DOCTYPE html>
 <html xmlns:o="urn:schemas-microsoft-com:office:office"
       xmlns:w="urn:schemas-microsoft-com:office:word"
@@ -1308,13 +1377,13 @@
 <meta charset="utf-8">
 <title>${escapeHtml(title)}</title>
 <style>
-  @page { size: ${pageSize}; margin: 1.2cm; }
-  body { font-family: "標楷體", "Microsoft JhengHei", sans-serif; font-size: 11pt; color: #111; }
-  h2 { text-align: center; margin: 0 0 8px; font-size: 15pt; }
-  .meta { margin-bottom: 8px; font-size: 10.5pt; }
-  table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-  th, td { border: 1px solid #222; padding: 6px; vertical-align: top; word-wrap: break-word; font-size: 10pt; }
-  th { background-color: #eef2ee; font-weight: bold; text-align: center; }
+  @page { size: ${pageSize}; margin: ${marginCss}; }
+  body { font-family: "標楷體", "Microsoft JhengHei", sans-serif; font-size: 10.5pt; color: #111; margin: 0; padding: 0; }
+  h2.plan-title { text-align: left; margin: 0 0 8px; font-size: 14pt; font-weight: bold; }
+  .meta { margin-bottom: 6px; font-size: 10pt; line-height: 1.45; }
+  table.plan-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+  table.plan-table th, table.plan-table td { border: 1px solid #222; padding: 5px 6px; vertical-align: top; word-wrap: break-word; font-size: 9.2pt; line-height: 1.35; }
+  table.plan-table th { background-color: #eef2ee; font-weight: bold; text-align: center; }
   .page-break { page-break-before: always; }
 </style>
 </head>
@@ -1381,13 +1450,13 @@
 
     document.getElementById("btnLoadSampleStudents").addEventListener("click", () => {
       document.getElementById("txtStudentImport").value = [
-        "鄭硯宇, 72.5cm, 10.1kg, 小寶班老師",
-        "林洛彤, 58cm, 5.7kg, 小寶班老師",
-        "林昕媞, 66cm, 7.7kg, 小寶班老師",
-        "俞凱瓅, 57cm, 5.6kg, 小寶班老師",
-        "藍芝穎, 66cm, 7.7kg, 小寶班老師"
+        "蔣秉均, 74.5cm, 9.3kg, 王唯芬",
+        "黃宇安, 74.8cm, 9.1kg, 王唯芬",
+        "李艾珈, 73cm, 10.2kg, 王唯芬",
+        "烏晟熹, 74.5cm, 9.6kg, 王唯芬",
+        "杜躍馳, 70cm, 9.2kg, 王唯芬"
       ].join("\n");
-      showToast("已載入小寶班範例學生名單");
+      showToast("已載入丸子班／中寶班範例名單");
     });
 
     document.getElementById("btnGenPlan").addEventListener("click", () => {
@@ -1622,84 +1691,107 @@
       showToast("已同步本月五大領域指標與活動至適性紀錄表");
     });
 
+    // 匯出【評鑑版】Word (A4)
     document.getElementById("btnExportEvalWord").addEventListener("click", () => {
       const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
-      const title = `中旭園托嬰中心 ${state.rocYear}年${state.month}月 適性發展活動計畫（${clsNameMap[state.classKey]}・評鑑版）`;
-      const body = `<h2>${escapeHtml(title)}</h2>
-        <div class="meta"><strong>年齡：</strong>${escapeHtml(state.ageRange)}</div>
-        <div class="meta">${escapeHtml(state.rosterByClass[state.classKey] || "").replace(/｜/g, "<br>")}</div>
-        ${document.getElementById("tblEval").outerHTML}`;
-      downloadWordDoc(`${state.rocYear}年${state.month}月活動計畫${clsNameMap[state.classKey]}(評鑑版).doc`, title, body, true);
-    });
-
-    document.getElementById("btnExportTeacherWord").addEventListener("click", () => {
-      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
-      const title = `中旭園托嬰中心 ${state.rocYear}年${state.month}月 適性發展活動計畫（${clsNameMap[state.classKey]}・老師版）`;
-      const body = `<h2>${escapeHtml(title)}</h2>${document.getElementById("tblTeacher").outerHTML}`;
-      downloadWordDoc(`${state.rocYear}年${state.month}月活動計畫${clsNameMap[state.classKey]}(老師版).doc`, title, body, true);
-    });
-
-    document.getElementById("btnExportChildWord").addEventListener("click", () => {
-      const child = getCurrentChild();
-      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
-      const title = `${state.month}月適性歸檔_${child ? child.name : "幼兒"}`;
-      const body = document.getElementById("tblChildRecord").outerHTML;
-      downloadWordDoc(`${state.month}月適性歸檔_${clsNameMap[state.classKey]}_${child ? child.name : "幼兒"}.doc`, title, body, false);
-    });
-
-    document.getElementById("btnExportAllChildrenWord").addEventListener("click", () => {
-      const list = state.childrenByClass[state.classKey] || [];
-      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
       const weeks = ensureCurrentPlan();
-      const firstWeek = weeks[0];
+      const rosterLines = (state.rosterByClass[state.classKey] || "").split("｜").map(s => escapeHtml(s.trim())).filter(Boolean);
 
-      const pagesHtml = list.map((ch, idx) => {
-        const rows = DOMAINS.map(dom => {
-          const c = firstWeek.cells[dom];
-          const curR = (ch.ratings && ch.ratings[dom]) || "常常";
-          const checks = ["總是", "常常", "偶爾", "較少"].map(op => `<td style="text-align:center;">${curR === op ? "ˇ" : ""}</td>`).join("");
-          return `<tr>
-            <td style="text-align:center;font-weight:bold;">${dom.split("").join("<br>")}</td>
-            <td><strong>${escapeHtml(c.code)} ${escapeHtml(c.goal)}【${escapeHtml(c.actName)}】</strong><br>${escapeHtml(c.desc)}</td>
-            ${checks}
-          </tr>`;
+      const rowsHtml = weeks.map(wk => {
+        const tds = DOMAINS.map(dom => {
+          const c = wk.cells[dom];
+          return `<td><strong>${escapeHtml(c.code)}</strong><br>${escapeHtml(c.goal)}<br><strong>【${escapeHtml(c.actName)}】</strong></td>`;
         }).join("");
-
-        return `<div class="${idx > 0 ? "page-break" : ""}">
-          <table>
-            <tr>
-              <th colspan="6" style="text-align:left;font-size:12pt;">
-                桃園市私立中旭園托嬰中心 ${state.rocYear}年 ${state.month}月 適性發展月活動紀錄<br>
-                班級：${clsNameMap[state.classKey]}  姓名：${escapeHtml(ch.name)}  身高：${escapeHtml(ch.height)}  體重：${escapeHtml(ch.weight)}
-              </th>
-            </tr>
-            <tr>
-              <th style="width:45px;">領域</th>
-              <th>適性發展活動</th>
-              <th style="width:48px;">總是</th>
-              <th style="width:48px;">常常</th>
-              <th style="width:48px;">偶爾</th>
-              <th style="width:48px;">較少</th>
-            </tr>
-            ${rows}
-            <tr>
-              <td style="text-align:center;font-weight:bold;">愛的叮嚀</td>
-              <td colspan="5">${escapeHtml(ch.loveNote || "")}</td>
-            </tr>
-            <tr>
-              <td style="text-align:center;font-weight:bold;">活動照片</td>
-              <td colspan="5" style="text-align:center;">
-                <img src="${state.photo1}" style="width:210px;height:145px;margin-right:12px;" />
-                <img src="${state.photo2}" style="width:210px;height:145px;" />
-              </td>
-            </tr>
-            <tr>
-              <td colspan="6">紀錄者：${escapeHtml(ch.recorder || "________")}  主任：________  家長簽名：________</td>
-            </tr>
-          </table>
-        </div>`;
+        return `<tr><td style="text-align:center;font-weight:bold;">${wk.weekName}<br>活動內容</td>${tds}</tr>`;
       }).join("");
 
+      const body = `<h2 class="plan-title">中旭園托嬰中心  適性發展活動 ${state.rocYear}年${state.month}月計畫  年齡：${escapeHtml(state.ageRange)}</h2>
+        <div class="meta">${rosterLines.join("<br>")}</div>
+        <table class="plan-table">
+          <thead>
+            <tr>
+              <th style="width:74px;">週次/領域</th>
+              <th>身體動作</th>
+              <th>社會情緒</th>
+              <th>語言溝通</th>
+              <th>認知探索</th>
+              <th>生活自理</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rowsHtml}
+            <tr>
+              <td style="text-align:center;font-weight:bold;">教材、情境、環境調整</td>
+              <td colspan="5">${escapeHtml(state.materials)}</td>
+            </tr>
+            <tr>
+              <td colspan="6" style="padding:10px 14px;font-weight:bold;">
+                托育人員簽名：____________________________      主任簽名：____________________________
+              </td>
+            </tr>
+          </tbody>
+        </table>`;
+
+      downloadWordDoc(`${state.rocYear}年${state.month}月活動計畫${clsNameMap[state.classKey]}(評鑑版).doc`, `評鑑版月計劃`, body, true);
+    });
+
+    // 匯出【老師版】Word (A4)
+    document.getElementById("btnExportTeacherWord").addEventListener("click", () => {
+      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
+      const weeks = ensureCurrentPlan();
+
+      const rowsHtml = weeks.map((wk, wIdx) => {
+        const tds = DOMAINS.map(dom => {
+          const c = wk.cells[dom];
+          const photoHint = (wIdx === 4 && dom === "認知探索")
+            ? `<br><span style="color:#b54848;">(${state.month}/13前生活花絮照片要先交出來)</span>`
+            : "";
+          return `<td>
+            <div style="font-weight:bold;">${escapeHtml(c.dateLabel)}</div>
+            <div style="font-weight:bold;">【${escapeHtml(c.actName)}】</div>
+            <div>領域：${escapeHtml(c.practiceArea)}</div>
+            <div>繪本：${escapeHtml(c.book)}</div>
+            ${photoHint}
+          </td>`;
+        }).join("");
+        return `<tr><td style="text-align:center;font-weight:bold;">${wk.weekName}<br>活動內容</td>${tds}</tr>`;
+      }).join("");
+
+      const body = `<h2 class="plan-title">中旭園托嬰中心  適性發展活動 ${state.rocYear}年${state.month}月計畫</h2>
+        <table class="plan-table">
+          <thead>
+            <tr>
+              <th style="width:74px;">週次/領域</th>
+              <th>身體動作</th>
+              <th>社會情緒</th>
+              <th>語言溝通</th>
+              <th>認知探索</th>
+              <th>生活自理</th>
+            </tr>
+          </thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>`;
+
+      downloadWordDoc(`${state.rocYear}年${state.month}月活動計畫${clsNameMap[state.classKey]}(老師版).doc`, `老師版月計劃`, body, true);
+    });
+
+    // 匯出【本童適性紀錄公版】Word (A4)（比照丸子班公版）
+    document.getElementById("btnExportChildWord").addEventListener("click", () => {
+      const child = getCurrentChild();
+      if (!child) return;
+      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
+      const weeks = ensureCurrentPlan();
+      const body = buildMarukoChildPageHtml(child, clsNameMap, weeks, false);
+      downloadWordDoc(`${state.month}月適性歸檔_${clsNameMap[state.classKey]}_${child.name}.doc`, `${state.month}月適性歸檔_${child.name}`, body, false);
+    });
+
+    // 批次匯出【全班適性紀錄】Word (A4)（比照丸子班公版逐頁分頁）
+    document.getElementById("btnExportAllChildrenWord").addEventListener("click", () => {
+      const list = state.childrenByClass[state.classKey] || [];
+      if (list.length === 0) return;
+      const clsNameMap = { small: "小寶班", mid: "中寶班", large: "大寶班" };
+      const weeks = ensureCurrentPlan();
+      const pagesHtml = list.map((ch, idx) => buildMarukoChildPageHtml(ch, clsNameMap, weeks, idx > 0)).join("");
       downloadWordDoc(`${state.rocYear}年${state.month}月_${clsNameMap[state.classKey]}全班適性歸檔.doc`, `${clsNameMap[state.classKey]}全班適性歸檔`, pagesHtml, false);
     });
 
