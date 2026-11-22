@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>桃園市私立中旭園托嬰中心｜適性發展月活動工作台</title>
+  <style>
+    :root {
+      --bg-main: #f7f4ee;
+      --bg-card: #ffffff;
+      --bg-soft: #f1ede4;
+      --primary: #4f7765;
+      --primary-dark: #38594a;
+      --primary-light: #e6efe9;
+      --accent: #c98a5b;
+      --accent-light: #fbf1e8;
+      --text-main: #2c3330;
+      --text-muted: #64706a;
+      --border: #d8d2c5;
+      --border-strong: #9aa79f;
+      --danger: #b54848;
+      --shadow: 0 4px 16px rgba(44, 51, 48, 0.06);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.55;
+    }
+
+    .topbar {
+      background: linear-gradient(135deg, #3f6454 0%, #567f6c 100%);
+      color: #fff;
+      padding: 16px 24px;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin: 0;
+    }
+
+    .brand-sub {
+      font-size: 0.85rem;
+      opacity: 0.92;
+      margin-top: 2px;
+    }
+
+    .sync-badge {
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 20px auto 48px;
+      padding: 0 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .card-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1.5px solid var(--bg-soft);
+    }
+
+    .card-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .step-pill {
+      background: var(--primary);
+      color: #fff;
+      font-size: 0.78rem;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .grid-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 12px;
+      align-items: end;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      color: var(--text-main);
+      background: #fff;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 119, 101, 0.15);
+    }
+
+    textarea { resize: vertical; min-height: 76px; }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    button {
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    button:hover { transform: translateY(-1px); filter: brightness(0.97); }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-accent { background: var(--accent); color: #fff; }
+    .btn-soft { background: var(--primary-light); color: var(--primary-dark); border: 1px solid #bfd3c8; }
+    .btn-outline { background: #fff; color: var(--text-main); border: 1px solid var(--border-strong); }
+    .btn-sm { padding: 5px 10px; font-size: 0.8rem; }
+
+    .view-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      background: var(--bg-soft);
+      padding: 8px;
+      border-radius: 10px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      color: var(--text-muted);
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 2px 6px rgba(56, 89, 74, 0.25);
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid #2c3330;
+      border-radius: 6px;
+      background: #fff;
+    }
+
+    table.doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      min-width: 860px;
+    }
+
+    table.doc-table th,
+    table.doc-table td {
+      border: 1px solid #3d4642;
+      padding: 8px 9px;
+      vertical-align: top;
+    }
+
+    table.doc-table th {
+      background: #e9efe9;
+      color: #1f2b25;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .cell-box {
+      border-radius: 6px;
+      padding: 5px 6px;
+      background: #fcfbf8;
+      border: 1px dashed transparent;
+      transition: all 0.15s;
+    }
+
+    .cell-box:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .cell-box.selected-cell {
+      border: 2px solid var(--accent);
+      background: var(--accent-light);
+    }
+
+    .code-tag {
+      display: inline-block;
+      background: #dce9e2;
+      color: #234234;
+      font-weight: 700;
+      font-size: 0.78rem;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-bottom: 2px;
+    }
+
+    .act-title-bold {
+      font-weight: 700;
+      color: #1d2622;
+      display: block;
+      margin: 2px 0;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .photo-box {
+      border: 1.5px dashed var(--border-strong);
+      border-radius: 10px;
+      padding: 10px;
+      background: #faf8f4;
+      text-align: center;
+    }
+
+    .photo-preview {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 8px;
+      background: #ece7dc;
+      margin-top: 8px;
+      display: block;
+    }
+
+    .ver-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .ver-card {
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      background: #fcfbf9;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .ver-card.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .ver-name {
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+      font-size: 0.95rem;
+    }
+
+    .check-box-result {
+      background: #f4f8f5;
+      border: 1px solid #b8d1c3;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+      margin-top: 8px;
+      white-space: pre-line;
+    }
+
+    .hint-box {
+      background: #fff9ef;
+      border-left: 4px solid var(--accent);
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      color: #4a3c2c;
+    }
+
+    .check-cell {
+      text-align: center !important;
+      vertical-align: middle !important;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: var(--primary-dark);
+      width: 56px;
+    }
+
+    .check-cell.checked { background: #e3f0e8; }
+    .hidden { display: none !important; }
+
+    .toast {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: #24382f;
+      color: #fff;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      z-index: 999;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all 0.25s;
+      pointer-events: none;
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div>
+        <h1 class="brand-title">桃園市私立中旭園托嬰中心｜適性發展月活動工作台</h1>
+        <div class="brand-sub">依內政部《托嬰中心嬰幼兒適性發展活動實務指引》｜逐班月計劃・學生名單匯入・粉專活動匯入・雙向連動・Word(A4)匯出</div>
+      </div>
+      <div class="sync-badge" id="syncStatus">● 雙向連動已啟用・自動儲存中</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Step 1 & Step 2: 逐班月計劃生成 + 粉專活動匯入 -->
+    <section class="card">
+      <div class="card-header">
+        <h2 class="card-title"><span class="step-pill">步驟 1 & 2</span> 逐班月計劃生成與上方匯入粉專／特色活動清單</h2>
+        <div class="btn-row">
+          <button class="btn-primary" id="btnGenPlan">✨ 依指引生成本班月計劃（不重複）</button>
+          <button class="btn-outline btn-sm" id="btnResetHistory">↺ 重置已排課紀錄</button>
+        </div>
+      </div>
+
+      <div class="grid-controls">
+        <div class="field">
+          <label for="selClass">選擇班別（三班分齡）</label>
+          <select id="selClass">
+            <option value="small">小寶班（0-8個月｜指引 I、II）</option>
+            <option value="mid" selected>中寶班（9-17個月｜指引 III、IV）</option>
+            <option value="large">大寶班（18-24個月｜指引 IV、V）</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="inpRocYear">民國年</label>
+          <input type="number" id="inpRocYear" value="116" min="110" max="125" />
+        </div>
+        <div class="field">
+          <label for="selMonth">月份</label>
+          <select id="selMonth">
+            <option value="1" selected>1月</option>
+            <option value="2">2月</option>
+            <option value="3">3月</option>
+            <option value="4">4月</option>
+            <option value="5">5月</option>
+            <option value="6">6月</option>
+            <option value="7">7月</option>
+            <option value="8">8月</option>
+            <option value="9">9月</option>
+            <option value="10">10月</option>
+            <option value="11">11月</option>
+            <option value="12">12月</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="inpAgeRange">年齡標示</label>
+          <input type="text" id="inpAgeRange" value="9-17個月" />
+        </div>
+        <div class="field">
+          <label for="inpMaterials">教材、情境、環境調整</label>
+          <input type="text" id="inpMaterials" value="紙箱、色紙、水管、呼拉圈、熱溶槍、奇異筆、圖畫紙、玩具刀、黏土、顏料、顏料盤、紙杯、手電筒、捲筒罐、小球、彩虹瓶。" />
+        </div>
+      </div>
+
+      <div class="field" style="margin-top: 12px;">
+        <label for="inpRoster">托育人員與本組嬰幼兒姓名（可自由修改）</label>
+        <textarea id="inpRoster" style="min-height: 58px;">托育人員：吳詩儂 本組嬰幼兒姓名：邱宇綸、李晨禾、賴司宸、陳禹彤｜托育人員：王唯芬 本組嬰幼兒姓名：烏晟熹、蔣秉均、黃宇安、李艾珈、杜躍馳｜托育人員：曹佳卉 本組嬰幼兒姓名：張能碩、李承翰、張筠晞、劉袖彤｜托育人員：黃寶玉 本組嬰幼兒姓名：張語澄、陳歆亞、陳佳渝、賴詩沂、許尹薰</textarea>
+      </div>
+
+      <div class="two-col" style="margin-top: 14px; align-items: start;">
+        <div class="field">
+          <label for="txtImportList">匯入「每月粉專／特色活動清單」（每行一筆：活動名稱｜實務領域｜繪本｜日期）</label>
+          <textarea id="txtImportList" style="min-height: 92px;" placeholder="例如：玉米畫｜藝術/塗鴉｜好餓好餓的毛毛蟲｜01/05(二)"></textarea>
+          <div class="btn-row" style="margin-top: 8px;">
+            <button class="btn-accent" id="btnImportList">📥 匯入清單並更新月計劃</button>
+            <button class="btn-soft btn-sm" id="btnLoadSampleList">載入 116年1月 粉專活動範例</button>
+          </div>
+        </div>
+        <div class="hint-box">
+          <strong>📌 操作說明：</strong><br />
+          1. 先選好<strong>班別與月份</strong>，按「依指引生成本班月計劃」，系統會自動挑出未排過的新指標編碼。<br />
+          2. 接著在左側<strong>匯入粉專或特色活動清單</strong>（如玉米畫、顏色配對、我會種花等），按「匯入清單並更新月計劃」，即可同時生成<strong>評鑑版</strong>與<strong>老師版</strong>
